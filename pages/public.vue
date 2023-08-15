@@ -68,10 +68,10 @@
 
 <script setup>
 const { status } = useAuth();
-// definePageMeta({
-//   auth: {
-//     unauthenticatedOnly: true,
-//     navigateAuthenticatedTo: "/about",
-//   },
-// });
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: "/public",
+  },
+});
 </script>

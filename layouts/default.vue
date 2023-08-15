@@ -44,23 +44,6 @@
       </div>
     </header>
 
-    <!-- <aside class=" ">
-        <div class="h-full px-3 py-4 overflow-y-auto">
-          <ul class="space-y-2 font-medium">
-            <li>
-              <a href="#" class="flex items-center p-2">
-                <span class="ml-3">Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="flex items-center p-2">
-                <span class="flex-1 ml-3 whitespace-nowrap">Kanban</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </aside> -->
-
     <main class="h-full">
       <slot />
     </main>
