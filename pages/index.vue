@@ -1,6 +1,5 @@
 <template>
   <div class="flex items-center justify-center mx-3">
-    <p>{{ status }}</p>
     <div>
       <div class="flex items-center justify-center text-xl md:text-2xl my-6">
         <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
@@ -67,7 +66,6 @@
 </template>
 
 <script setup>
-const { status } = useAuth();
 // definePageMeta({
 //   auth: {
 //     unauthenticatedOnly: true,

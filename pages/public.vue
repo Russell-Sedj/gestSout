@@ -67,11 +67,12 @@
 </template>
 
 <script setup>
-const { status } = useAuth();
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
     navigateAuthenticatedTo: "/public",
   },
 });
+const { status } = useAuth();
+console.log(status);
 </script>

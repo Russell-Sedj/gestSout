@@ -1,13 +1,13 @@
 <template>
   <div>
     <header class="flex justify-between items-center h-16 z-10 font-mono">
-      <nuxt-link to="/" class="font-bold text-2xl md:text-3xl ml-1"
+      <nuxt-link to="/public" class="font-bold text-2xl md:text-3xl ml-1"
         >Easy Manager</nuxt-link
       >
 
       <ul class="w-auto font-semibold hidden md:flex">
         <li class="mx-2">
-          <nuxt-link to="/">Acceuil</nuxt-link>
+          <nuxt-link to="/public">Acceuil</nuxt-link>
         </li>
         <li class="mx-2">
           <nuxt-link to="/login">Connexion</nuxt-link>
