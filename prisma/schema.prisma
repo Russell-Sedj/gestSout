@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model student {
+  id         String    @id @default(cuid())
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt
+
+  lastname  String
+  firstname String
+  email     String @unique
+  password  String @default(cuid())
+  telephone String
+  address   String
+  field     String
+
+  direction    direction?    @relation(fields: [directionId], references: [id])
+  master       master?       @relation(fields: [masterId], references: [id])
+  internMaster internMaster? @relation(fields: [internMasterId], references: [id])
+  subject      String?
+
+  presentation_date DateTime?
+  presentation_room String?
+  final_decision    String?
+
+  is_profil_information_complete Boolean?
+  school_fees                    Boolean?
+  is_presentation_finished       Boolean?
+  is_subject_validated           Boolean?
+  is_UE_validated                Boolean?
+  is_connected                   Boolean?
+  stay_connected                 Boolean?
+
+  directionId    String?
+  masterId       String?
+  internMasterId String?
+}
+
+model master {
+  id         String    @id @default(cuid())
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt
+
+  lastname  String
+  firstname String
+  email     String    @unique
+  telephone String
+  student   student[]
+}
+
+model internMaster {
+  id         String    @id @default(cuid())
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt
+
+  lastname     String
+  firstname    String
+  email        String    @unique
+  telephone    String
+  company_name String
+  student      student[]
+}
+
+model direction {
+  id         String    @id @default(cuid())
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt
+  email      String    @unique
+  password   String
+  connected  String?
+  limit_date DateTime
+
+  student student[]
+}
