@@ -1,17 +1,8 @@
 import { getServerSession } from "#auth";
 
-const users = [
-  {
-    id: 1,
-    email: "bontecouc@gmail.com",
-    birthday: "4-14-1994",
-  },
-  {
-    id: 2,
-    email: "user@example.com",
-    birthday: "1-2-30",
-  },
-];
+const userStudent = await $fetch("api/student");
+const userDirection = await $fetch("api/direction");
+const users = userStudent.concat(userDirection);
 
 export default eventHandler(async (event) => {
   const session = await getServerSession(event);
@@ -20,5 +11,5 @@ export default eventHandler(async (event) => {
   }
 
   const user = users.find((user) => user.email === session.user?.email);
-  return { id: user?.id, email: user?.email, birthday: user?.birthday };
+  return { id: user?.id, email: user?.email };
 });
