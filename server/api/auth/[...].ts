@@ -12,15 +12,28 @@ export default NuxtAuthHandler({
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
     CredentialsProvider.default({
       name: "Credentials",
-      authorize(credentials: any) {
-        const user = {
-          email: "user@example.com",
-          password: "123",
-        };
+      async authorize(credentials: any) {
+        // const user = {
+        //   email: "user@example.com",
+        //   password: "123",
+        // };
+
+        const student_list = await $fetch("/api/student/");
+        console.log(
+          "student: ---------------------------------\n",
+          student_list
+        );
+
+        // const userWithEmail = users.find((user) => user.email === "abc@gmail.com");
+        const user = student_list.find(
+          (user) =>
+            user.email === credentials.email &&
+            user.password === credentials.password
+        );
 
         console.log(credentials);
-
         if (
+          user &&
           credentials?.email === user.email &&
           credentials?.password === user.password
         ) {

@@ -79,7 +79,7 @@ const toggleMenu = () => {
 const nav_items = [
   {
     name: "Acceuil",
-    link: "/",
+    link: "/public",
   },
   {
     name: "Connexion",

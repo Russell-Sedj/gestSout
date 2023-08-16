@@ -1,12 +1,11 @@
 <template>
   <div class="flex items-center justify-center mx-3">
-    <p>{{ status }}</p>
     <div>
       <div class="flex items-center justify-center text-xl md:text-2xl my-6">
         <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
         limite de depot : 20 Mars 2023
       </div>
-
+      <button @click="signOut" v-if="status === 'authenticated'">Logout</button>
       <div class="mb-5">
         <p class="font-bold text-xl md:text-2xl mb-3">FAQ</p>
         <ol>
@@ -73,6 +72,6 @@ definePageMeta({
     navigateAuthenticatedTo: "/public",
   },
 });
-const { status } = useAuth();
+const { status, signOut } = useAuth();
 console.log(status);
 </script>

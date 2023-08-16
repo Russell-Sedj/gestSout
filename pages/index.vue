@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center justify-center mx-3">
     <div>
-      <div class="flex items-center justify-center text-xl md:text-2xl my-6">
+      <!-- <div class="flex items-center justify-center text-xl md:text-2xl my-6">
         <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
         limite de depot : 20 Mars 2023
-      </div>
+      </div> -->
 
       <div class="mb-5">
         <p class="font-bold text-xl md:text-2xl mb-3">FAQ</p>
