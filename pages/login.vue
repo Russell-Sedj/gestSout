@@ -9,7 +9,7 @@
           signIn('credentials', {
             email: emailStudent,
             password: passwordStudent,
-            callbackUrl: '/public',
+            callbackUrl: '/',
           })
         "
       >
