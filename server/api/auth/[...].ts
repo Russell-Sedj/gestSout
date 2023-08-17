@@ -27,7 +27,6 @@ export default NuxtAuthHandler({
             userDirection.password === credentials.password
         );
 
-        console.log(credentials);
         if (
           userStudent &&
           credentials?.email === userStudent.email &&

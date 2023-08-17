@@ -9,7 +9,7 @@
           signIn('credentials', {
             email: emailStudent,
             password: passwordStudent,
-            callbackUrl: '/',
+            callbackUrl: '/public',
           })
         "
       >
@@ -66,7 +66,6 @@
           Valider
         </button>
       </form>
-      <div>{{ status }}</div>
     </div>
   </div>
 </template>

@@ -5,7 +5,6 @@
         <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
         limite de depot : 20 Mars 2023
       </div>
-      <button @click="signOut" v-if="status === 'authenticated'">Logout</button>
       <div class="mb-5">
         <p class="font-bold text-xl md:text-2xl mb-3">FAQ</p>
         <ol>
@@ -68,10 +67,10 @@
 <script setup>
 definePageMeta({
   auth: {
-    unauthenticatedOnly: true,
+    unauthenticatedOnly: false,
     navigateAuthenticatedTo: "/public",
   },
 });
-const { status, signOut } = useAuth();
+const { status } = useAuth();
 console.log(status);
 </script>
