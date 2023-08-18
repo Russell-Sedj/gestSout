@@ -8,6 +8,11 @@ export default NuxtAuthHandler({
     signIn: "/login",
   },
 
+  session: {
+    // 2hours
+    maxAge: 2 * 60 * 60,
+  },
+
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
     CredentialsProvider.default({
@@ -15,6 +20,8 @@ export default NuxtAuthHandler({
       async authorize(credentials: any) {
         const student_list = await $fetch("/api/student/");
         const direction_list = await $fetch("/api/direction/");
+
+        console.log("credentials ----------------------------", credentials);
 
         const userStudent = student_list.find(
           (userStudent) =>

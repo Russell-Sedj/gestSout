@@ -5,6 +5,7 @@
         <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
         limite de depot : 20 Mars 2023
       </div>
+      <div>{{ me }}</div>
       <div class="mb-5">
         <p class="font-bold text-xl md:text-2xl mb-3">FAQ</p>
         <ol>
@@ -71,6 +72,7 @@ definePageMeta({
     navigateAuthenticatedTo: "/public",
   },
 });
+
 const { status } = useAuth();
-console.log(status);
+const me = await $fetch("/api/me");
 </script>

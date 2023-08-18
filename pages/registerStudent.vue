@@ -122,6 +122,13 @@
 </template>
 
 <script setup>
+// definePageMeta({
+//   auth: {
+//     unauthenticatedOnly: true,
+//     navigateAuthenticatedTo: "/public",
+//   },
+// });
+
 useHead({
   title: "Inscription Etudiant",
   meta: [
@@ -132,6 +139,10 @@ useHead({
   ],
 });
 
+const direction_list = await $fetch("/api/direction/");
+const currentUser = await $fetch("/api/me");
+const a = direction_list.find((user) => user.email === currentUser.email);
+
 const student = ref({
   firstname: null,
   lastname: null,
@@ -139,6 +150,7 @@ const student = ref({
   telephone: null,
   address: null,
   field: null,
+  direction: a.university_name,
 });
 
 function resetStudent() {
@@ -149,6 +161,7 @@ function resetStudent() {
     telephone: null,
     address: null,
     field: null,
+    direction: a.university_name,
   };
 }
 

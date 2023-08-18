@@ -5,6 +5,7 @@ export default defineNuxtConfig({
 
   auth: {
     enableGlobalAppMiddleware: true,
+    // globalAppMiddleware: true
   },
 
   css: ["~/assets/css/main.css"],
