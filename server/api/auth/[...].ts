@@ -21,7 +21,7 @@ export default NuxtAuthHandler({
         const student_list = await $fetch("/api/student/");
         const direction_list = await $fetch("/api/direction/");
 
-        console.log("credentials ----------------------------", credentials);
+        // console.log("credentials ----------------------------", credentials);
 
         const userStudent = student_list.find(
           (userStudent) =>
