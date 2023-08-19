@@ -9,7 +9,7 @@
           signIn('credentials', {
             email: emailStudent,
             password: passwordStudent,
-            callbackUrl: '/public',
+            callbackUrl: '/',
           })
         "
       >
@@ -74,7 +74,7 @@
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
-    navigateAuthenticatedTo: "/public",
+    navigateAuthenticatedTo: "/",
   },
 });
 

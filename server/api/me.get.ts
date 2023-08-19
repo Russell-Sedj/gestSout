@@ -33,4 +33,8 @@ export default eventHandler(async (event) => {
       university_name: loggedDirection.university_name,
     };
   }
+  // else if none of them, logout
+  else {
+    return { status: "Unknown user!!!" };
+  }
 });

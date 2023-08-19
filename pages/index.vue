@@ -1,11 +1,11 @@
 <template>
   <div class="flex items-center justify-center mx-3">
     <div>
-      <!-- <div class="flex items-center justify-center text-xl md:text-2xl my-6">
+      <div class="flex items-center justify-center text-xl md:text-2xl my-6">
         <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
         limite de depot : 20 Mars 2023
-      </div> -->
-
+      </div>
+      <div>{{ me }}</div>
       <div class="mb-5">
         <p class="font-bold text-xl md:text-2xl mb-3">FAQ</p>
         <ol>
@@ -66,10 +66,13 @@
 </template>
 
 <script setup>
-// definePageMeta({
-//   auth: {
-//     unauthenticatedOnly: true,
-//     navigateAuthenticatedTo: "/about",
-//   },
-// });
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: false,
+    navigateAuthenticatedTo: "/",
+  },
+});
+
+const { status } = useAuth();
+const me = await $fetch("/api/me");
 </script>
