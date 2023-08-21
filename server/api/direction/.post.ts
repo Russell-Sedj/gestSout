@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
       input_data[key] = body[key];
     }
   }
-
   if (body.email && body.password) {
     await prisma.direction
       .create({

@@ -13,7 +13,7 @@
           <nuxt-link to="/">Acceuil</nuxt-link>
         </li>
         <li class="mx-2" v-if="loggedIn">
-          <button @click="signOut">Deconnexion</button>
+          <nuxt-link to="/" @click="signOut">Deconnexion</nuxt-link>
         </li>
         <li class="mx-2" v-else>
           <nuxt-link to="/login">Connexion</nuxt-link>

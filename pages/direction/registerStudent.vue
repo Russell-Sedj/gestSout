@@ -1,10 +1,14 @@
+<!-- https://flowbite.com/docs/components/forms -->
+
 <template>
-  <div class="md:flex md:justify-center md:items-center mt-11 mb-4 lg:mt-20">
+  <div
+    class="md:flex md:justify-center md:items-center mt-11 mb-9 md:mb-4 lg:mt-20"
+  >
     <div class="m-3 md:w-3/4 lg:w-2/4">
       <h1 class="text-gray-700 font-bold text-2xl mb-6">
-        Profil Maitre Memoire
+        Inscription Etudiant
       </h1>
-      <form @submit.prevent="editMaster(master)">
+      <form @submit.prevent="addStudent(student)">
         <div class="grid md:grid-cols-2 md:gap-6">
           <div class="relative z-0 w-full mb-8 group">
             <input
@@ -14,7 +18,7 @@
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
-              v-model="master.lastname"
+              v-model="student.lastname"
             />
             <label
               for="floating_last_name"
@@ -30,7 +34,7 @@
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
-              v-model="master.firstname"
+              v-model="student.firstname"
             />
             <label
               for="floating_first_name"
@@ -47,7 +51,7 @@
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
-            v-model="master.email"
+            v-model="student.email"
           />
           <label
             for="floating_email"
@@ -56,23 +60,65 @@
           >
         </div>
 
+        <div class="grid md:grid-cols-2 md:gap-6">
+          <div class="relative z-0 w-full mb-8 group">
+            <input
+              type="tel"
+              name="floating_phone"
+              id="floating_phone"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+              v-model="student.telephone"
+            />
+            <label
+              for="floating_phone"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
+              >Numero de telephone</label
+            >
+          </div>
+
+          <div class="relative z-0 w-full mb-8 group">
+            <input
+              type="text"
+              name="floating_address"
+              id="floating_address"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              v-model="student.address"
+            />
+            <label
+              for="floating_address"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
+              >Adresse</label
+            >
+          </div>
+        </div>
         <div class="relative z-0 w-full mb-8 group">
           <input
-            type="tel"
-            name="floating_phone"
-            id="floating_phone"
+            type="text"
+            name="floating_filiere"
+            id="floating_filiere"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
-            v-model="master.telephone"
+            v-model="student.field"
           />
           <label
-            for="floating_phone"
+            for="floating_filiere"
             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
-            >Numero de telephone</label
+            >Filiere</label
           >
         </div>
-
+        <div class="relative z-0 w-full mb-8 group">
+          <label for="floating_year" class="text-gray-600 mr-4"
+            >Année académique</label
+          >
+          <select v-model="student.year" id="floating_year">
+            <option value="2023-2024" selected>2023-2024</option>
+            <option value="2022-2023">2022-2023</option>
+          </select>
+        </div>
         <button
           type="submit"
           class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
@@ -85,47 +131,70 @@
 </template>
 
 <script setup>
+// definePageMeta({
+//   auth: {
+//     unauthenticatedOnly: false,
+//     navigateAuthenticatedTo: "/",
+//   },
+// });
+
 useHead({
-  title: "Profil Maitre Memoire",
+  title: "Inscription Etudiant",
   meta: [
     {
       name: "description",
-      content: "Profil Maitre Memoire",
+      content: "Inscription Etudiant",
     },
   ],
 });
 
-const master_list = await $fetch("/api/master/");
-const master = ref({
-  id: master_list[0].id,
-  lastname: master_list[0].lastname,
-  firstname: master_list[0].firstname,
-  email: master_list[0].email,
-  telephone: master_list[0].telephone,
+const currentUser = await $fetch("/api/me");
+
+const student = ref({
+  firstname: null,
+  lastname: null,
+  email: null,
+  telephone: null,
+  address: null,
+  field: null,
+  year: "2023-2024",
+  directionId: currentUser.id,
 });
 
-async function editMaster(master) {
+function resetStudent() {
+  student.value = {
+    firstname: null,
+    lastname: null,
+    email: null,
+    telephone: null,
+    address: null,
+    field: null,
+    year: null,
+    directionId: currentUser.id,
+  };
+}
+
+async function addStudent(student) {
   let req = null;
 
   if (
-    master.id &&
-    master.firstname &&
-    master.lastname &&
-    master.email &&
-    master.telephone &&
-    master.address &&
-    master.field
+    student.firstname &&
+    student.lastname &&
+    student.email &&
+    student.telephone &&
+    student.address &&
+    student.field &&
+    student.year
   ) {
-    req = await $fetch("/api/master/", {
-      method: "PUT",
-      body: master,
+    req = await $fetch("/api/student/", {
+      method: "POST",
+      body: student,
     });
     if (req) {
-      alert("Profil modifié avec succès");
-    } else if (req.message) {
-      alert("Erreur lors de la modification du profil");
+      alert("Etudiant ajouté avec succès");
+      resetStudent();
     } else {
-      alert("Erreur lors de la modification du profil");
+      alert("Erreur lors de l'ajout de l'étudiant");
     }
   } else {
     alert("Veuillez remplir tous les champs");

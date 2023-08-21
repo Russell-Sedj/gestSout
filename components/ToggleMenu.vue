@@ -16,13 +16,13 @@
       <nuxt-link class="block px-4 py-2 hover:bg-gray-100" to="/"
         >Acceuil</nuxt-link
       >
-      <button
+      <nuxt-link
         class="block px-4 py-2 hover:bg-gray-100"
-        @click="signOut"
         v-if="loggedIn"
+        to="/"
+        @click="signOut"
+        >Deconnexion</nuxt-link
       >
-        Deconnexion
-      </button>
       <nuxt-link class="block px-4 py-2 hover:bg-gray-100" to="/login" v-else
         >Connexion</nuxt-link
       >

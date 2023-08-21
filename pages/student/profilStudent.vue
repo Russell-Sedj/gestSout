@@ -128,7 +128,7 @@
               id="floating_master"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              v-model="student.masterId"
+              v-model="student.master"
             />
             <label
               for="floating_master"
@@ -143,7 +143,7 @@
               id="floating_intern_master"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              v-model="student.internMasterId"
+              v-model="student.internMaster"
             />
             <label
               for="floating_intern_master"
@@ -175,18 +175,18 @@ useHead({
   ],
 });
 
-const student_list = await $fetch("/api/student/");
+const currentUser = await $fetch("/api/me");
 const student = ref({
-  id: student_list[0].id,
-  lastname: student_list[0].lastname,
-  firstname: student_list[0].firstname,
-  email: student_list[0].email,
-  telephone: student_list[0].telephone,
-  address: student_list[0].address,
-  field: student_list[0].field,
-  subject: student_list[0].subject,
-  masterId: student_list[0].masterId,
-  internMasterId: student_list[0].internMasterId,
+  id: currentUser.id,
+  lastname: currentUser.lastname,
+  firstname: currentUser.firstname,
+  email: currentUser.email,
+  telephone: currentUser.telephone,
+  address: currentUser.address,
+  field: currentUser.field,
+  subject: currentUser.subject,
+  master: currentUser.master,
+  internMaster: currentUser.internMaster,
 });
 
 async function editStudent(student) {

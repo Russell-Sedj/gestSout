@@ -1,7 +1,6 @@
 import { getServerSession } from "#auth";
 
 export default eventHandler(async (event) => {
-  // get user from database student and direction
   const userStudent = await $fetch("/api/student/");
   const userDirection = await $fetch("/api/direction/");
 
@@ -18,20 +17,9 @@ export default eventHandler(async (event) => {
   );
 
   if (loggedStudent) {
-    return {
-      id: loggedStudent.id,
-      email: loggedStudent.email,
-      lastname: loggedStudent.lastname,
-      firstname: loggedStudent.firstname,
-      role: loggedStudent.role,
-    };
+    return loggedStudent;
   } else if (loggedDirection) {
-    return {
-      id: loggedDirection.id,
-      email: loggedDirection.email,
-      role: loggedDirection.role,
-      university_name: loggedDirection.university_name,
-    };
+    return loggedDirection;
   }
   // else if none of them, logout
   else {

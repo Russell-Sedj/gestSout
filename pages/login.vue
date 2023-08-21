@@ -45,7 +45,7 @@
             >Password</label
           >
         </div>
-        <div class="relative z-0 w-full mb-10 group">
+        <!-- <div class="relative z-0 w-full mb-10 group">
           <div class="flex items-center h-5">
             <label for="stay_logged" class="mr-3 text-sm text-gray-600"
               >Rester Connecter</label
@@ -58,7 +58,7 @@
               v-model="stay_connected"
             />
           </div>
-        </div>
+        </div> -->
         <button
           type="submit"
           class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
@@ -78,10 +78,10 @@ definePageMeta({
   },
 });
 
-const { signIn, status } = useAuth();
+const { signIn } = useAuth();
 const emailStudent = ref("");
 const passwordStudent = ref("");
-const stay_connected = ref(null);
+// const stay_connected = ref(null);
 </script>
 
 <style scoped>

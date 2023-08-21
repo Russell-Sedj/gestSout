@@ -85,6 +85,13 @@
 </template>
 
 <script setup>
+// definePageMeta({
+//   auth: {
+//     unauthenticatedOnly: false,
+//     navigateAuthenticatedTo: "/",
+//   },
+// });
+
 useHead({
   title: "Inscription Service Examen",
   meta: [

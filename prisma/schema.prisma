@@ -23,52 +23,27 @@ model student {
   telephone String
   address   String
   field     String
+  year      String
 
-  direction    direction?    @relation(fields: [directionId], references: [id])
-  master       master?       @relation(fields: [masterId], references: [id])
-  internMaster internMaster? @relation(fields: [internMasterId], references: [id])
-  subject      String?
-
+  master            String?
+  internMaster      String?
+  subject           String?
   presentation_date DateTime?
   presentation_room String?
   final_decision    String?
+  appreciation      String?
 
+  is_school_fees_paid            Boolean?
+  is_credit_enough               Boolean?
   is_profil_information_complete Boolean?
-  school_fees                    Boolean?
+  is_ready_for_presentation      Boolean?
   is_presentation_finished       Boolean?
-  is_subject_validated           Boolean?
-  is_UE_validated                Boolean?
-  is_connected                   Boolean?
   stay_connected                 Boolean?
 
-  directionId    String?
-  masterId       String?
-  internMasterId String?
-}
-
-model master {
-  id         String    @id @default(cuid())
-  created_at DateTime  @default(now()) @db.DateTime(0)
-  updated_at DateTime? @updatedAt
-
-  lastname  String
-  firstname String
-  email     String    @unique
-  telephone String
-  student   student[]
-}
-
-model internMaster {
-  id         String    @id @default(cuid())
-  created_at DateTime  @default(now()) @db.DateTime(0)
-  updated_at DateTime? @updatedAt
-
-  lastname     String
-  firstname    String
-  email        String    @unique
-  telephone    String
-  company_name String
-  student      student[]
+  // masterId       String?
+  // internMasterId String?
+  direction   direction @relation(fields: [directionId], references: [id])
+  directionId String
 }
 
 model direction {
@@ -82,8 +57,32 @@ model direction {
   university_name String    @unique
   telephone       String
   limit_date      DateTime?
-  is_connected    Boolean?
   stay_connected  Boolean?
 
   student student[]
 }
+
+// model master {
+//   id         String    @id @default(cuid())
+//   created_at DateTime  @default(now()) @db.DateTime(0)
+//   updated_at DateTime? @updatedAt
+
+//   lastname  String
+//   firstname String
+//   email     String    @unique
+//   telephone String
+//   student   student[]
+// }
+
+// model internMaster {
+//   id         String    @id @default(cuid())
+//   created_at DateTime  @default(now()) @db.DateTime(0)
+//   updated_at DateTime? @updatedAt
+
+//   lastname     String
+//   firstname    String
+//   email        String    @unique
+//   telephone    String
+//   company_name String
+//   student      student[]
+// }
