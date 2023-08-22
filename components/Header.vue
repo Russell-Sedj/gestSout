@@ -12,14 +12,14 @@
         <li class="mx-2">
           <nuxt-link to="/">Acceuil</nuxt-link>
         </li>
-        <li class="mx-2" v-if="loggedIn">
-          <nuxt-link to="/" @click="signOut">Deconnexion</nuxt-link>
-        </li>
-        <li class="mx-2" v-else>
+        <li class="mx-2" v-if="!loggedIn">
           <nuxt-link to="/login">Connexion</nuxt-link>
         </li>
         <li class="mx-2">
           <nuxt-link to="/about">A propos</nuxt-link>
+        </li>
+        <li class="mx-2" v-if="loggedIn">
+          <nuxt-link to="/" @click="signOut">Deconnexion</nuxt-link>
         </li>
       </ul>
 

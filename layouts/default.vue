@@ -1,10 +1,11 @@
 <template>
   <div>
-    <HeaderModal />
+    <Header />
 
     <main class="h-full">
       <slot />
     </main>
+
     <footer
       class="flex justify-between items-center text-xs px-2 h-44 relative bottom-0 w-full z-10 bg-gray-800 text-white"
     >

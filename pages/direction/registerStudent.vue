@@ -114,7 +114,7 @@
           <label for="floating_year" class="text-gray-600 mr-4"
             >Année académique</label
           >
-          <select v-model="student.year" id="floating_year">
+          <select v-model="student.year" id="floating_year" required>
             <option value="2023-2024" selected>2023-2024</option>
             <option value="2022-2023">2022-2023</option>
           </select>
