@@ -32,11 +32,15 @@ export default defineEventHandler(async (event) => {
         console.log("Internal Server Error:\n" + e.message);
         return { message: "Internal Server Error:\n" + e.message };
       });
-  } else if (input_data.hasOwnProperty("directionId")) {
+  } else if (
+    input_data.hasOwnProperty("directionId") &&
+    input_data.hasOwnProperty("year")
+  ) {
     await prisma.student
       .findMany({
         where: {
           directionId: input_data.directionId,
+          year: input_data.year,
         },
       })
       .then((response) => {

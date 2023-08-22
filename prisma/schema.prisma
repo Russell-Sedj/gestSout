@@ -28,7 +28,7 @@ model student {
   master            String?
   internMaster      String?
   subject           String?
-  presentation_date DateTime?
+  presentation_date String?
   presentation_room String?
   final_decision    String?
   appreciation      String?
@@ -40,8 +40,6 @@ model student {
   is_presentation_finished       Boolean?
   stay_connected                 Boolean?
 
-  // masterId       String?
-  // internMasterId String?
   direction   direction @relation(fields: [directionId], references: [id])
   directionId String
 }
