@@ -25,9 +25,10 @@ model student {
   field     String
   year      String
 
-  master            String?
-  internMaster      String?
-  subject           String?
+  master       String?
+  internMaster String?
+  subject      String?
+
   presentation_date DateTime?
   presentation_room String?
   final_decision    String?
@@ -38,7 +39,6 @@ model student {
   is_profil_information_complete Boolean?
   is_ready_for_presentation      Boolean?
   is_presentation_finished       Boolean?
-  stay_connected                 Boolean?
 
   direction   direction @relation(fields: [directionId], references: [id])
   directionId String
@@ -50,12 +50,13 @@ model direction {
   updated_at DateTime? @updatedAt
   role       String    @default("direction")
 
-  email           String    @unique
-  password        String    @default(cuid())
-  university_name String    @unique
+  email           String  @unique
+  password        String  @default(cuid())
+  university_name String  @unique
   telephone       String
-  limit_date      DateTime?
-  stay_connected  Boolean?
+  address         String?
+
+  limit_date DateTime?
 
   student student[]
 }
