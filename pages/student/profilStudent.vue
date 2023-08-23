@@ -155,7 +155,7 @@
 
         <button
           type="submit"
-          class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          class="bg-blue-500 hover:bg-blue-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
           Valider
         </button>
@@ -217,12 +217,3 @@ async function editStudent(student) {
   }
 }
 </script>
-
-<style scoped>
-button {
-  background-color: #3da019;
-}
-button:hover {
-  background-color: #2b7810;
-}
-</style>
