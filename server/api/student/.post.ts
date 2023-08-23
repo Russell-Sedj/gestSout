@@ -50,6 +50,20 @@ export default defineEventHandler(async (event) => {
         console.log("Internal Server Error:\n" + e.message);
         return { message: "Internal Server Error:\n" + e.message };
       });
+  } else if (input_data.hasOwnProperty("id")) {
+    await prisma.student
+      .findUnique({
+        where: {
+          id: input_data.id,
+        },
+      })
+      .then((response) => {
+        request = response;
+      })
+      .catch((e) => {
+        console.log("Internal Server Error:\n" + e.message);
+        return { message: "Internal Server Error:\n" + e.message };
+      });
   } else {
     console.log(
       "Bad Request: Missing parameters"
