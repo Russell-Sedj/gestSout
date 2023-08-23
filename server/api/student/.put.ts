@@ -1,39 +1,3 @@
-// import { PrismaClient } from "@prisma/client";
-// const prisma = new PrismaClient();
-
-// export default defineEventHandler(async (event) => {
-//   const body = await readBody(event);
-//   let request = null;
-
-//   const input_data: any = {};
-//   for (const key in body) {
-//     if (body.hasOwnProperty(key)) {
-//       input_data[key] = body[key];
-//     }
-//   }
-//   console.log(input_data);
-
-//   if (input_data.id) {
-//     await prisma.student
-//       .update({
-//         where: {
-//           id: input_data.id,
-//         },
-//         data: input_data,
-//       })
-//       .then((response) => {
-//         request = response;
-//       })
-//       .catch((e) => {
-//         return { message: "Internal Server Error \n" + e.message };
-//       });
-//   } else {
-//     return { message: "Bad Request: Missing ID" };
-//   }
-
-//   return request;
-// });
-
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -48,6 +12,31 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  // check is the profil is completed
+  const student = await prisma.student.findUnique({
+    where: { id: input_data.id },
+  });
+  if (student) {
+    if (
+      student.firstname &&
+      student.lastname &&
+      student.email &&
+      student.password &&
+      student.telephone &&
+      student.address &&
+      student.field &&
+      student.year &&
+      student.master &&
+      student.internMaster &&
+      student.subject
+    ) {
+      input_data.is_profil_information_complete = true;
+    } else {
+      input_data.is_profil_information_complete = false;
+    }
+  }
+
+  // now the job start!!
   if (
     input_data.id &&
     input_data.firstname &&
@@ -57,7 +46,6 @@ export default defineEventHandler(async (event) => {
     input_data.address &&
     input_data.field
   ) {
-    console.log(input_data);
     await prisma.student
       .update({
         where: { id: input_data.id },
@@ -70,7 +58,10 @@ export default defineEventHandler(async (event) => {
         console.log("Internal Server Error:\n" + e.message);
         return { message: "Internal Server Error:\n" + e.message };
       });
-  } else {
+  }
+
+  // case where shit
+  else {
     console.log(
       "Bad Request: Missing nom or prenom or email or telephone or field"
     );
