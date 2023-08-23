@@ -58,7 +58,7 @@
             <label
               class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
               v-else
-              >Profil complété</label
+              >Profil complet</label
             >
           </div>
 
