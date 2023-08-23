@@ -33,13 +33,13 @@ export default defineEventHandler(async (event) => {
         return { message: "Internal Server Error:\n" + e.message };
       });
   } else if (
-    input_data.hasOwnProperty("directionId") &&
+    input_data.hasOwnProperty("listDirectionId") &&
     input_data.hasOwnProperty("year")
   ) {
     await prisma.student
       .findMany({
         where: {
-          directionId: input_data.directionId,
+          directionId: input_data.listDirectionId,
           year: input_data.year,
         },
       })
@@ -50,11 +50,11 @@ export default defineEventHandler(async (event) => {
         console.log("Internal Server Error:\n" + e.message);
         return { message: "Internal Server Error:\n" + e.message };
       });
-  } else if (input_data.hasOwnProperty("id")) {
+  } else if (input_data.hasOwnProperty("uniqueId")) {
     await prisma.student
       .findUnique({
         where: {
-          id: input_data.id,
+          id: input_data.uniqueId,
         },
       })
       .then((response) => {

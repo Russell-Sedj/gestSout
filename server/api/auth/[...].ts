@@ -10,7 +10,7 @@ export default NuxtAuthHandler({
 
   session: {
     // 2hours
-    maxAge: 2 * 60 * 60,
+    // maxAge: 2 * 60 * 60,
   },
 
   providers: [

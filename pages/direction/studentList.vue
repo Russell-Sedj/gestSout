@@ -1,8 +1,5 @@
 <template>
   <div class="my-5">
-    <div v-if="studentStatus">
-      <StudentStatus />
-    </div>
     <div class="mb-5">
       <ul class="flex flex-wrap">
         <div class="flex justify-between">
@@ -62,11 +59,12 @@
     <!-- Display list of students -->
     <div class="mx-3 p-1">
       <div v-for="student in filteredList">
-        <StudentView
-          :student="student"
-          class="border-b-2 border-gray-400 mt-3"
-          @click="studentStatus = true"
-        />
+        <nuxt-link :to="`/direction/studentStatus/${student.id}`">
+          <StudentView
+            :student="student"
+            class="border-b-2 border-gray-400 mt-3"
+          />
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -75,7 +73,6 @@
 <script setup>
 const filterValue = ref("enCours");
 const year = ref("2023-2024");
-const studentStatus = ref(false);
 
 const currentUser = await $fetch("/api/me");
 if (currentUser.role === "student") {
@@ -86,13 +83,13 @@ const studentList = ref(null);
 
 studentList.value = await $fetch("/api/student/", {
   method: "POST",
-  body: { directionId: currentUser.id, year: year.value },
+  body: { listDirectionId: currentUser.id, year: year.value },
 });
 
 watch(year, async () => {
   studentList.value = await $fetch("/api/student/", {
     method: "POST",
-    body: { directionId: currentUser.id, year: year.value },
+    body: { listDirectionId: currentUser.id, year: year.value },
   });
 });
 
