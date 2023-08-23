@@ -131,9 +131,11 @@ async function addDirection(direction) {
       method: "POST",
       body: direction,
     });
-    if (req) {
+    if (!req.message) {
       alert("Service Examen ajouté avec succès");
       resetDirection();
+    } else if (req.message) {
+      alert("Erreur lors de l'ajout du Service Examen");
     } else {
       alert("Erreur lors de l'ajout du Service Examen");
     }
