@@ -12,10 +12,10 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  if (body.id) {
+  if (input_data.id) {
     request = await prisma.direction.update({
       where: {
-        id: body.id,
+        id: input_data.id,
       },
       data: input_data,
     });
