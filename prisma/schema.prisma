@@ -28,7 +28,7 @@ model student {
   master            String?
   internMaster      String?
   subject           String?
-  presentation_date String?
+  presentation_date DateTime?
   presentation_room String?
   final_decision    String?
   appreciation      String?

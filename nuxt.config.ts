@@ -3,6 +3,12 @@ export default defineNuxtConfig({
   // devtools: { enabled: true },
   modules: ["@sidebase/nuxt-auth", "@nuxtjs/tailwindcss"],
 
+  runtimeConfig: {
+    public: {
+      currentYear: "2023-2024",
+    },
+  },
+
   auth: {
     enableGlobalAppMiddleware: true,
   },

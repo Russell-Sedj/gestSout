@@ -46,6 +46,9 @@
 </template>
 
 <script setup>
+const runtimeConfig = useRuntimeConfig();
+const currentYear = runtimeConfig.public.currentYear;
+
 const currentUser = await $fetch("/api/me");
 if (currentUser.role === "student") {
   navigateTo("/");
@@ -53,6 +56,6 @@ if (currentUser.role === "student") {
 
 const listStudent = await $fetch("/api/student/", {
   method: "POST",
-  body: { directionId: currentUser.id },
+  body: { directionId: currentUser.id, year: currentYear },
 });
 </script>

@@ -9,7 +9,7 @@
           signIn('credentials', {
             email: emailStudent,
             password: passwordStudent,
-            callbackUrl: '/',
+            callbackUrl: callbackUrl,
           })
         "
       >
@@ -61,7 +61,7 @@
         </div> -->
         <button
           type="submit"
-          class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          class="bg-blue-500 hover:bg-blue-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
           Valider
         </button>
@@ -81,14 +81,12 @@ definePageMeta({
 const { signIn } = useAuth();
 const emailStudent = ref("");
 const passwordStudent = ref("");
-// const stay_connected = ref(null);
-</script>
 
-<style scoped>
-button {
-  background-color: #3da019;
-}
-button:hover {
-  background-color: #2b7810;
-}
-</style>
+// get the route where the user where going
+const route = useRoute();
+const url = route.fullPath;
+const start = url.indexOf("callbackUrl=");
+const end = url.indexOf("&error");
+const x = url.substring(start, end);
+const [key, callbackUrl] = x.split("=");
+</script>
