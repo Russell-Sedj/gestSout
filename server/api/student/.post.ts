@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  // case where we want to create a student
   if (
     input_data.firstname &&
     input_data.lastname &&
@@ -32,7 +33,10 @@ export default defineEventHandler(async (event) => {
         console.log("Internal Server Error:\n" + e.message);
         return { message: "Internal Server Error:\n" + e.message };
       });
-  } else if (
+  }
+
+  // case where we want to get all students
+  else if (
     input_data.hasOwnProperty("listDirectionId") &&
     input_data.hasOwnProperty("year")
   ) {
@@ -50,7 +54,10 @@ export default defineEventHandler(async (event) => {
         console.log("Internal Server Error:\n" + e.message);
         return { message: "Internal Server Error:\n" + e.message };
       });
-  } else if (input_data.hasOwnProperty("uniqueId")) {
+  }
+
+  // case where we get one unique student
+  else if (input_data.hasOwnProperty("uniqueId")) {
     await prisma.student
       .findUnique({
         where: {
@@ -64,7 +71,10 @@ export default defineEventHandler(async (event) => {
         console.log("Internal Server Error:\n" + e.message);
         return { message: "Internal Server Error:\n" + e.message };
       });
-  } else {
+  }
+
+  // case where shit
+  else {
     console.log(
       "Bad Request: Missing parameters"
       // "Bad Request: Missing nom or prenom or email or telephone or field"
