@@ -190,11 +190,13 @@ async function addStudent(student) {
       method: "POST",
       body: student,
     });
-    if (!req.message) {
-      alert("Etudiant ajouté avec succès");
-      resetStudent();
-    } else if (req.message) {
-      alert("Erreur lors de l'ajout de l'étudiant");
+    if (req) {
+      if (!req.message) {
+        alert("Etudiant ajouté avec succès");
+        resetStudent();
+      } else if (req.message) {
+        alert("Erreur lors de l'ajout de l'étudiant");
+      }
     } else {
       alert("Erreur lors de l'ajout de l'étudiant");
     }

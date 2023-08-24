@@ -201,10 +201,12 @@ async function editStudent(student) {
       method: "PUT",
       body: student,
     });
-    if (req.message) {
-      alert("Erreur lors de la modification du profil");
-    } else if (!req.message) {
-      alert("Profil modifié avec succès");
+    if (req) {
+      if (req.message) {
+        alert("Erreur lors de la modification du profil");
+      } else if (!req.message) {
+        alert("Profil modifié avec succès");
+      }
     } else {
       alert("Erreur lors de la modification du profil");
     }
