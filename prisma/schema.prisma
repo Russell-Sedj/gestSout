@@ -42,7 +42,7 @@ model student {
   is_presentation_finished Boolean?
   final_decision           String?
   appreciation             String?
-  case_close               Boolean?
+  case_closed              Boolean?
 
   // foreign keys
   direction   direction @relation(fields: [directionId], references: [id])
