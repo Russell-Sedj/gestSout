@@ -18,17 +18,17 @@ export default defineEventHandler(async (event) => {
   });
   if (student) {
     if (
-      student.firstname &&
-      student.lastname &&
-      student.email &&
-      student.password &&
-      student.telephone &&
-      student.address &&
-      student.field &&
-      student.year &&
-      student.master &&
-      student.internMaster &&
-      student.subject
+      input_data.firstname &&
+      input_data.lastname &&
+      input_data.email &&
+      input_data.password &&
+      input_data.telephone &&
+      input_data.address &&
+      input_data.field &&
+      input_data.year &&
+      input_data.master &&
+      input_data.internMaster &&
+      input_data.subject
     ) {
       input_data.is_profil_information_complete = true;
     } else {
