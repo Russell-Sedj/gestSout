@@ -18,6 +18,19 @@
       <form @submit.prevent="updateStudent(studentUpdate)">
         <div v-if="!studentUpdate.is_ready_for_presentation">
           <div class="flex justify-between mb-6">
+            <div v-if="studentUpdate.is_profil_information_complete">
+              <span class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6">
+                Profil complet
+              </span>
+            </div>
+            <div v-if="!studentUpdate.is_profil_information_complete">
+              <span class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6">
+                Profil incomplet
+              </span>
+            </div>
+          </div>
+
+          <div class="flex justify-between mb-6">
             <label
               class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6"
               v-if="!studentUpdate.is_school_fees_paid"
@@ -54,29 +67,13 @@
               v-model="studentUpdate.is_credit_enough"
             />
           </div>
-
-          <div v-if="!studentUpdate.is_profil_information_complete"></div>
         </div>
+
         <div v-else>
           <div v-if="!studentUpdate.is_presentation_finished">
-            <div class="flex justify-between mb-6">
-              <div v-if="studentUpdate.is_profil_information_complete">
-                <span
-                  class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
-                >
-                  Profil complet
-                </span>
-
-                <p class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6">
-                  Prêt pour presenter
-                </p>
-              </div>
-              <div v-if="!studentUpdate.is_profil_information_complete">
-                <span class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6">
-                  Profil incomplet
-                </span>
-              </div>
-            </div>
+            <p class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6">
+              Prêt pour presenter
+            </p>
 
             <div>
               <p class="mb-6">Date de presentation</p>
@@ -86,6 +83,7 @@
                 v-model="studentUpdate.presentation_date"
               />
             </div>
+
             <div>
               <p class="mb-6">Heure de presentation</p>
               <input
@@ -94,6 +92,7 @@
                 v-model="studentUpdate.presentation_time"
               />
             </div>
+
             <div>
               <p class="mb-6">Salle de presentation</p>
               <input
@@ -137,7 +136,7 @@
               v-if="studentUpdate.final_decision && studentUpdate.appreciation"
             >
               <button
-                class="mb-6 bg-orange-500 inline-block px-3 py-2 cursor-pointer"
+                class="mb-6 bg-orange-500 inline-block px-3 py-2 cursor-pointer hover:bg-orange-700 ease-out duration-500 text-white font-medium"
                 @click="case_closed = true"
               >
                 Cloturer le dossier
