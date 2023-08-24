@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
       })
       .then((response) => {
         request = response;
+        console.log("Student created successfully");
       })
       .catch((e) => {
         console.log("Internal Server Error:\n" + e.message);
@@ -49,6 +50,7 @@ export default defineEventHandler(async (event) => {
       })
       .then((response) => {
         request = response;
+        console.log("Students retrieved successfully");
       })
       .catch((e) => {
         console.log("Internal Server Error:\n" + e.message);
@@ -66,22 +68,27 @@ export default defineEventHandler(async (event) => {
       })
       .then((response) => {
         request = response;
+        console.log("Student retrieved successfully");
       })
       .catch((e) => {
         console.log("Internal Server Error:\n" + e.message);
+        createError({
+          statusCode: 500,
+          statusMessage: "Internal Server Error",
+        });
         return { message: "Internal Server Error:\n" + e.message };
       });
   }
 
   // case where shit
   else {
-    console.log(
-      "Bad Request: Missing parameters"
-      // "Bad Request: Missing nom or prenom or email or telephone or field"
-    );
+    console.log("Bad Request: Missing parameters");
+    createError({
+      statusCode: 400,
+      statusMessage: "Bad Request: Missing parameters",
+    });
     return {
       message: "Bad Request: Missing parameters",
-      // "Bad Request: Missing nom or prenom or email or password or telephone or field",
     };
   }
   return {

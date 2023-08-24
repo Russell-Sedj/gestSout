@@ -61,10 +61,15 @@ export default defineEventHandler(async (event) => {
         data: input_data,
       })
       .then((response) => {
+        console.log("Student updated");
         request = response;
       })
       .catch((e) => {
         console.log("Internal Server Error:\n" + e.message);
+        createError({
+          statusCode: 500,
+          statusMessage: "Internal Server Error",
+        });
         return { message: "Internal Server Error:\n" + e.message };
       });
   }
@@ -74,6 +79,11 @@ export default defineEventHandler(async (event) => {
     console.log(
       "Bad Request: Missing nom or prenom or email or telephone or field"
     );
+    createError({
+      statusCode: 400,
+      statusMessage:
+        "Bad Request: Missing nom or prenom or email or telephone or field",
+    });
     return {
       message:
         "Bad Request: Missing nom or prenom or email or password or telephone or field",

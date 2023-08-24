@@ -13,38 +13,33 @@ export default defineEventHandler(async (event) => {
   }
 
   if (input_data.id) {
-    request = await prisma.direction.update({
-      where: {
-        id: input_data.id,
-      },
-      data: input_data,
-    });
+    await prisma.direction
+      .update({
+        where: {
+          id: input_data.id,
+        },
+        data: input_data,
+      })
+      .then((response) => {
+        request = response;
+        console.log("Direction updated successfully");
+      })
+      .catch((e) => {
+        console.log("Internal Server Error:\n" + e.message);
+        createError({
+          statusCode: 500,
+          statusMessage: "Internal Server Error",
+        });
+        return { message: "Internal Server Error.\n" + e };
+      });
   } else {
-    return createError({
+    console.log("Bad Request: Some parameters are missing");
+    createError({
       statusCode: 400,
-      statusMessage: "Some parameters are missing",
+      statusMessage: "Bad Request: Some parameters are missing",
     });
+    return { message: "Bad Request: Some parameters are missing" };
   }
 
   return request;
 });
-
-/* 
-const data = {};
-  for (const key in body) {
-    if (body.hasOwnProperty(key)) {
-      data[key] = body[key];
-    }
-  }
-
-  let user;
-
-  if (data.id) {
-    user = await prisma.users.update({
-      where: {
-        id: data.id,
-      },
-      data,
-    });
-  }
-   */

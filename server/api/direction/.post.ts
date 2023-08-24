@@ -18,18 +18,23 @@ export default defineEventHandler(async (event) => {
       })
       .then((response) => {
         request = response;
+        console.log("Direction created successfully");
       })
       .catch((e) => {
-        return createError({
+        console.log("Internal Server Error:\n" + e.message);
+        createError({
           statusCode: 500,
-          statusMessage: "Internal Server Error.\n" + e,
+          statusMessage: "Internal Server Error",
         });
+        return { message: "Internal Server Error.\n" + e };
       });
   } else {
-    return createError({
+    console.log("Bad Request: Missing Parameter");
+    createError({
       statusCode: 400,
       statusMessage: "Bad Request: Missing Parameter",
     });
+    return { message: "Bad Request: Missing Parameter" };
   }
 
   return request;
