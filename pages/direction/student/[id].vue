@@ -12,105 +12,140 @@
         <strong v-if="studentUpdate.subject" class="font-bold">{{
           " " + studentUpdate.subject
         }}</strong>
-        <strong v-else class="font-bold"> ???</strong>
-      </div>
-
-      <div v-if="studentUpdate.is_presentation_finished" class="mb-6">
-        <p>Presentation terminée</p>
-      </div>
-
-      <div v-if="student.final_decision" class="mb-6">
-        Decision finale:
-        <strong class="font-bold">{{ studentUpdate.final_decision }}</strong>
+        <strong v-else class="font-bold">???</strong>
       </div>
 
       <form @submit.prevent="updateStudent(studentUpdate)">
-        <div v-if="studentUpdate.is_presentation_finished">
-          <div v-if="!student.final_decision" class="mb-6 flex justify-between">
-            <label>Decision finale</label>
-            <select v-model="studentUpdate.final_decision">
-              <option value="Très bien">Très bien</option>
-              <option value="Bien">Bien</option>
-              <option value="Assez bien">Assez bien</option>
-              <option value="Passable">Passable</option>
-              <option value="Insuffisant">Insuffisant</option>
-            </select>
-          </div>
-
-          <div v-if="!studentUpdate.appreciation">
-            <p class="mb-6">Appreciation</p>
-            <textarea
-              class="border-2 border-gray-400 mb-6"
-              rows="4"
-              cols="45"
-              v-model="studentUpdate.appreciation"
-            ></textarea>
-          </div>
-        </div>
-
-        <div v-if="!studentUpdate.is_presentation_finished">
+        <div v-if="!studentUpdate.is_ready_for_presentation">
           <div class="flex justify-between mb-6">
             <label
-              class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
-              v-if="studentUpdate.is_profil_information_complete"
-              >Profil complet</label
+              class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6"
+              v-if="!studentUpdate.is_school_fees_paid"
             >
+              Scolarité non close
+            </label>
+            <label
+              class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
+              v-else
+            >
+              Scolarité close
+            </label>
+            <input
+              class="w-6 h-6"
+              type="checkbox"
+              v-model="studentUpdate.is_school_fees_paid"
+            />
+          </div>
+
+          <div class="flex justify-between mb-6">
             <label
               class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6"
-              v-if="!studentUpdate.is_profil_information_complete"
-              >Profil incomplet</label
+              v-if="!studentUpdate.is_credit_enough"
+              >Crédits insufisants</label
             >
+            <label
+              class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
+              v-else
+              >Crédits sufisants</label
+            >
+            <input
+              class="w-6 h-6"
+              type="checkbox"
+              v-model="studentUpdate.is_credit_enough"
+            />
           </div>
 
-          <div v-if="studentUpdate.is_ready_for_presentation">
-            <p class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6">
-              Prêt pour presenter
-            </p>
-            <nuxt-link :to="`/direction/student/programmation${student.id}`"
-              >Programmer l'etudiant</nuxt-link
-            >
-          </div>
-
-          <div v-if="!studentUpdate.is_profil_information_complete">
+          <div v-if="!studentUpdate.is_profil_information_complete"></div>
+        </div>
+        <div v-else>
+          <div v-if="!studentUpdate.is_presentation_finished">
             <div class="flex justify-between mb-6">
-              <label
-                class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6"
-                v-if="!studentUpdate.is_school_fees_paid"
-              >
-                Scolarité non close
-              </label>
-              <label
-                class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
-                v-else
-              >
-                Scolarité close
-              </label>
-              <input
-                class="w-6 h-6"
-                type="checkbox"
-                v-model="studentUpdate.is_school_fees_paid"
-              />
+              <div v-if="studentUpdate.is_profil_information_complete">
+                <span
+                  class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
+                >
+                  Profil complet
+                </span>
+
+                <p class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6">
+                  Prêt pour presenter
+                </p>
+              </div>
+              <div v-if="!studentUpdate.is_profil_information_complete">
+                <span class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6">
+                  Profil incomplet
+                </span>
+              </div>
             </div>
 
-            <div class="flex justify-between mb-6">
-              <label
-                class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6"
-                v-if="!studentUpdate.is_credit_enough"
-                >Crédits insufisants</label
-              >
-              <label
-                class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
-                v-else
-                >Crédits sufisants</label
-              >
+            <div>
+              <p class="mb-6">Date de presentation</p>
               <input
-                class="w-6 h-6"
-                type="checkbox"
-                v-model="studentUpdate.is_credit_enough"
+                class="border-2 border-gray-400 mb-6"
+                type="date"
+                v-model="studentUpdate.presentation_date"
               />
+            </div>
+            <div>
+              <p class="mb-6">Heure de presentation</p>
+              <input
+                class="border-2 border-gray-400 mb-6"
+                type="time"
+                v-model="studentUpdate.presentation_time"
+              />
+            </div>
+            <div>
+              <p class="mb-6">Salle de presentation</p>
+              <input
+                class="border-2 border-gray-400 mb-6"
+                type="text"
+                v-model="studentUpdate.presentation_room"
+              />
+            </div>
+          </div>
+
+          <div v-else>
+            <div v-if="studentUpdate.is_presentation_finished" class="mb-6">
+              <p>Presentation terminée</p>
+            </div>
+
+            <div
+              v-if="!student.final_decision"
+              class="mb-6 flex justify-between"
+            >
+              <label>Decision finale</label>
+              <select v-model="studentUpdate.final_decision">
+                <option value="Très bien">Très bien</option>
+                <option value="Bien">Bien</option>
+                <option value="Assez bien">Assez bien</option>
+                <option value="Passable">Passable</option>
+                <option value="Insuffisant">Insuffisant</option>
+              </select>
+            </div>
+
+            <div v-if="!studentUpdate.appreciation">
+              <p class="mb-6">Appreciation</p>
+              <textarea
+                class="border-2 border-gray-400 mb-6"
+                rows="4"
+                cols="45"
+                v-model="studentUpdate.appreciation"
+              ></textarea>
+            </div>
+
+            <div
+              v-if="studentUpdate.final_decision && studentUpdate.appreciation"
+            >
+              <button
+                class="mb-6 bg-orange-500 inline-block px-3 py-2 cursor-pointer"
+                @click="case_closed = true"
+              >
+                Cloturer le dossier
+              </button>
             </div>
           </div>
         </div>
+
         <button
           type="submit"
           class="mb-6 bg-blue-500 hover:bg-blue-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
@@ -132,15 +167,23 @@ const obj = await $fetch("/api/student", {
 const student = obj.request;
 const studentUpdate = ref(student);
 
+const case_closed = ref(false);
+
+// functions
 const updateStudent = async (studentUpdate) => {
+  studentUpdate.case_closed = case_closed.value;
+
   const req = await $fetch("/api/student", {
     method: "PUT",
     body: studentUpdate,
   });
-  if (req.message) {
-    alert("Erreur lors de la mise à jour");
-  } else if (!req.message) {
-    alert("Etudiant mis à jour avec succes");
+  if (req) {
+    if (req.message) {
+      alert("Erreur lors de la mise à jour");
+    } else if (!req.message) {
+      alert("Etudiant mis à jour avec succes");
+      location.reload();
+    }
   } else {
     alert("Erreur lors de la mise à jour");
   }
