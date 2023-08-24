@@ -18,13 +18,19 @@ export default defineEventHandler(async (event) => {
       })
       .catch((e) => {
         console.log("Internal Server Error:\n" + e.message);
+        createError({
+          statusCode: 500,
+          statusMessage: "Internal Server Error.\n" + e,
+        });
         return { message: "Internal Server Error:\n" + e.message };
       });
   } else {
     console.log("Bad Request: Missing Id");
-    return {
-      message: "Bad Request: Missing Id",
-    };
+    createError({
+      statusCode: 400,
+      statusMessage: "Bad Request: Missing ID",
+    });
+    return { message: "Bad Request: Missing Id" };
   }
   return request;
 });
