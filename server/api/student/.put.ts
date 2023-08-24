@@ -36,6 +36,15 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  // check if the student is ready for presentation
+  if (
+    input_data.is_profil_information_complete &&
+    input_data.is_school_fees_paid &&
+    input_data.is_credit_enough
+  ) {
+    input_data.is_ready_for_presentation = true;
+  }
+
   // now the job start!!
   if (
     input_data.id &&
