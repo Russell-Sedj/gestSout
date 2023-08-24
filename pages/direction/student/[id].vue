@@ -83,7 +83,7 @@
               <p class="mb-6">Date de presentation</p>
               <input
                 class="border-2 border-gray-400 mb-6"
-                type="date"
+                type="datetime-local"
                 v-model="studentUpdate.presentation_date"
               />
             </div>
@@ -107,12 +107,12 @@
             </div>
 
             <div>
-              <button
+              <div
                 @click="finishPresentation"
-                class="mb-6 bg-green-500 hover:bg-green-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                class="mb-6 bg-yellow-500 hover:bg-yelow-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               >
                 Presentation terminée
-              </button>
+              </div>
             </div>
           </div>
 
@@ -148,12 +148,12 @@
             <div
               v-if="studentUpdate.final_decision && studentUpdate.appreciation"
             >
-              <button
-                class="mb-6 bg-orange-500 hover:bg-orange-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              <div
+                class="mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                 @click="closeCase"
               >
                 Cloturer le dossier
-              </button>
+              </div>
             </div>
           </div>
         </div>
@@ -166,6 +166,7 @@
         </button>
       </form>
     </div>
+    <div>{{ studentUpdate }}</div>
   </div>
 </template>
 
@@ -180,6 +181,20 @@ const student = obj.request;
 const studentUpdate = ref(student);
 
 const case_closed = ref(false);
+
+// for the presentation date ------------------------------------------------------
+const convertedDate = computed(() => {
+  const dateObject = new Date(studentUpdate.value.presentation_date);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+  };
+  return dateObject.toLocaleString(undefined, options);
+});
 
 // functions
 // ------------------------------------------------------
@@ -200,11 +215,13 @@ const finishPresentation = () => {
 // ------------------------------------------------------
 const updateStudent = async (studentUpdate) => {
   studentUpdate.case_closed = case_closed.value;
+  studentUpdate.presentation_date = convertedDate.value;
 
   const req = await $fetch("/api/student", {
     method: "PUT",
     body: studentUpdate,
   });
+
   if (req) {
     if (req.message) {
       alert("Erreur lors de la mise à jour");
