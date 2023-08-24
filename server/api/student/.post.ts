@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
       })
       .then((response) => {
         request = response;
-        console.log("Students retrieved successfully");
+        console.log("All students retrieved successfully");
       })
       .catch((e) => {
         console.log("Internal Server Error:\n" + e.message);
