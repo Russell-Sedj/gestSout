@@ -59,7 +59,7 @@
     <!-- Display list of students -->
     <div class="mx-3 p-1">
       <div v-for="student in filteredList">
-        <nuxt-link :to="`/direction/studentStatus/${student.id}`">
+        <nuxt-link :to="`/direction/student/${student.id}`">
           <StudentView
             :student="student"
             class="border-b-2 border-gray-400 mt-3"
