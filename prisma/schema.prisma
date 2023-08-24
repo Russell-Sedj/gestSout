@@ -16,6 +16,7 @@ model student {
   updated_at DateTime? @updatedAt
   role       String    @default("student")
 
+  // personal informations
   lastname  String
   firstname String
   email     String @unique
@@ -29,17 +30,21 @@ model student {
   internMaster String?
   subject      String?
 
-  presentation_date DateTime?
-  presentation_room String?
-  final_decision    String?
-  appreciation      String?
-
+  // conditions before ready
   is_school_fees_paid            Boolean?
   is_credit_enough               Boolean?
   is_profil_information_complete Boolean?
   is_ready_for_presentation      Boolean?
-  is_presentation_finished       Boolean?
 
+  // when profil status is okay
+  presentation_date        DateTime?
+  presentation_room        String?
+  is_presentation_finished Boolean?
+  final_decision           String?
+  appreciation             String?
+  case_close               Boolean?
+
+  // foreign keys
   direction   direction @relation(fields: [directionId], references: [id])
   directionId String
 }
