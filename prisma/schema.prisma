@@ -37,7 +37,7 @@ model student {
   is_ready_for_presentation      Boolean?
 
   // when profil status is okay
-  presentation_date        DateTime?
+  presentation_date        String?
   presentation_room        String?
   is_presentation_finished Boolean?
   final_decision           String?
