@@ -15,7 +15,11 @@
         <strong v-else class="font-bold">???</strong>
       </div>
 
-      <form @submit.prevent="updateStudent(studentUpdate)">
+      <!-- if the case of the student is not closed -->
+      <div v-if="studentUpdate.case_closed"></div>
+
+      <!-- if the case of the student is closed -->
+      <form @submit.prevent="updateStudent(studentUpdate)" v-else>
         <div v-if="!studentUpdate.is_ready_for_presentation">
           <div class="flex justify-between mb-6">
             <div v-if="studentUpdate.is_profil_information_complete">
@@ -84,14 +88,14 @@
               />
             </div>
 
-            <div>
+            <!-- <div>
               <p class="mb-6">Heure de presentation</p>
               <input
                 class="border-2 border-gray-400 mb-6"
                 type="time"
                 v-model="studentUpdate.presentation_time"
               />
-            </div>
+            </div> -->
 
             <div>
               <p class="mb-6">Salle de presentation</p>
@@ -101,10 +105,19 @@
                 v-model="studentUpdate.presentation_room"
               />
             </div>
+
+            <div>
+              <button
+                @click="finishPresentation"
+                class="mb-6 bg-green-500 hover:bg-green-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                Presentation terminée
+              </button>
+            </div>
           </div>
 
           <div v-else>
-            <div v-if="studentUpdate.is_presentation_finished" class="mb-6">
+            <div class="mb-6">
               <p>Presentation terminée</p>
             </div>
 
@@ -136,8 +149,8 @@
               v-if="studentUpdate.final_decision && studentUpdate.appreciation"
             >
               <button
-                class="mb-6 bg-orange-500 inline-block px-3 py-2 cursor-pointer hover:bg-orange-700 ease-out duration-500 text-white font-medium"
-                @click="case_closed = true"
+                class="mb-6 bg-orange-500 hover:bg-orange-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                @click="closeCase"
               >
                 Cloturer le dossier
               </button>
@@ -169,6 +182,22 @@ const studentUpdate = ref(student);
 const case_closed = ref(false);
 
 // functions
+// ------------------------------------------------------
+const closeCase = () => {
+  case_closed.value = !case_closed.value;
+  case_closed ? alert("Attention cette action est irreversible") : null;
+};
+
+// ------------------------------------------------------
+const finishPresentation = () => {
+  studentUpdate.is_presentation_finished =
+    !studentUpdate.is_presentation_finished;
+  studentUpdate.is_presentation_finished
+    ? alert("Attention cette action est irreversible")
+    : null;
+};
+
+// ------------------------------------------------------
 const updateStudent = async (studentUpdate) => {
   studentUpdate.case_closed = case_closed.value;
 
