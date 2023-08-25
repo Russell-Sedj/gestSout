@@ -1,7 +1,7 @@
 <template>
   <div>
     <header
-      class="flex justify-between items-center h-20 z-10 font-mono bg-gray-800 text-white"
+      class="flex justify-between items-center h-20 font-mono bg-gray-800 text-white"
     >
       <nuxt-link to="/" class="font-bold text-2xl md:text-3xl ml-1"
         >Easy Manager</nuxt-link
