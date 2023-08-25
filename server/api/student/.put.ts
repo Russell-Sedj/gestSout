@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
       input_data[key] = body[key];
     }
   }
+  // console.log("input_data: ----------------------\n", input_data);
 
   // check is the profil is completed
   const student = await prisma.student.findUnique({
