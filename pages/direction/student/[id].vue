@@ -8,15 +8,43 @@
       </h1>
 
       <div class="mb-6 flex justify-between">
-        <span class="mr-2"> Theme: </span>
-        <span v-if="studentUpdate.subject" class="font-bold">{{
-          " " + studentUpdate.subject
-        }}</span>
-        <span v-else class="font-bold">???</span>
+        <div class="w-auto mr-2">Theme</div>
+        <div v-if="studentUpdate.subject" class="font-medium text-right">
+          {{ studentUpdate.subject }}
+        </div>
+        <div v-else class="font-medium">???</div>
+      </div>
+
+      <div class="mb-6 flex justify-between">
+        <div class="w-auto mr-2">Filière</div>
+        <div class="font-medium text-right">{{ studentUpdate.field }}</div>
       </div>
 
       <!-- if the case of the student is not closed ------------------------------------------------------------------------------------------------------------ -->
-      <div v-if="studentUpdate.case_closed"></div>
+      <div v-if="studentUpdate.case_closed">
+        <div class="mb-6 flex justify-between">
+          <span class="w-auto mr-2">Maitre de Stage</span>
+          <span class="font-medium">{{ studentUpdate.master }}</span>
+        </div>
+
+        <div class="mb-6 flex justify-between">
+          <span class="w-auto mr-2">Decision finale</span>
+          <span class="font-medium">{{ studentUpdate.final_decision }}</span>
+        </div>
+
+        <div class="mb-6">
+          <div class="mb-2">Appreciation</div>
+          <div class="border-2 border-gray-400 p-2 rounded-md bg-gray-200">
+            {{ studentUpdate.appreciation }}
+          </div>
+        </div>
+
+        <p
+          class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+        >
+          Dossier clos
+        </p>
+      </div>
 
       <!-- if the case of the student is closed ------------------------------------------------------------------------------------------------------------ -->
       <form @submit.prevent="updateStudent(studentUpdate)" v-else>
@@ -85,7 +113,7 @@
               Prêt pour presenter
             </p>
 
-            <div>
+            <div class="flex justify-between">
               <p class="mb-6">Date de presentation</p>
               <input
                 class="border-2 border-gray-400 mb-6"
@@ -94,7 +122,7 @@
               />
             </div>
 
-            <div>
+            <div class="flex justify-between">
               <p class="mb-6">Salle de presentation</p>
               <input
                 class="border-2 border-gray-400 mb-6"
@@ -150,7 +178,6 @@
               <span class="font-medium"
                 >Cloturer le dossier (Irréversible !)</span
               >
-
               <div
                 class="inline-block cursor-pointer mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 @click="case_closed = !case_closed"
@@ -168,8 +195,6 @@
         >
           Valider
         </button>
-
-        <p>{{ studentUpdate }}</p>
       </form>
     </div>
   </div>
