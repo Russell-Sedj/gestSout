@@ -50,10 +50,10 @@ model student {
 }
 
 model direction {
-  id         String    @id @default(cuid())
-  created_at DateTime  @default(now()) @db.DateTime(0)
-  updated_at DateTime? @updatedAt
-  role       String    @default("direction")
+  id         String   @id @default(cuid())
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @updatedAt
+  role       String   @default("direction")
 
   email           String  @unique
   password        String  @default(cuid())
