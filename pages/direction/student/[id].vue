@@ -127,7 +127,7 @@
               class="mb-6 flex justify-between"
             >
               <label>Decision finale</label>
-              <select v-model="studentUpdate.final_decision">
+              <select v-model="final_decision">
                 <option value="Très bien">Très bien</option>
                 <option value="Bien">Bien</option>
                 <option value="Assez bien">Assez bien</option>
@@ -142,7 +142,7 @@
                 class="border-2 border-gray-400 mb-6"
                 rows="4"
                 cols="45"
-                v-model="studentUpdate.appreciation"
+                v-model="appreciation"
               ></textarea>
             </div>
 
@@ -186,6 +186,8 @@ const case_closed = ref(studentUpdate.value.case_closed);
 const is_presentation_finished = ref(
   studentUpdate.value.is_presentation_finished
 );
+const final_decision = ref(studentUpdate.value.final_decision);
+const appreciation = ref(studentUpdate.value.appreciation);
 
 // for the presentation date ------------------------------------------------------------------------------------------------------------
 /* const convertedDate = computed(() => {
@@ -248,8 +250,9 @@ const closeCase = () => {
 const updateStudent = async (studentUpdate) => {
   studentUpdate.case_closed = case_closed.value;
   studentUpdate.is_presentation_finished = is_presentation_finished.value;
-  console.log(studentUpdate.is_presentation_finished);
   studentUpdate.presentation_date = convertedDate.value;
+  studentUpdate.final_decision = final_decision.value;
+  studentUpdate.appreciation = appreciation.value;
 
   const req = await $fetch("/api/student", {
     method: "PUT",
