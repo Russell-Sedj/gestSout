@@ -15,10 +15,10 @@
         <strong v-else class="font-bold">???</strong>
       </div>
 
-      <!-- if the case of the student is not closed -->
+      <!-- if the case of the student is not closed------------------------------------------------------ -->
       <div v-if="studentUpdate.case_closed"></div>
 
-      <!-- if the case of the student is closed -->
+      <!-- if the case of the student is closed------------------------------------------------------ -->
       <form @submit.prevent="updateStudent(studentUpdate)" v-else>
         <div v-if="!studentUpdate.is_ready_for_presentation">
           <div class="flex justify-between mb-6">
@@ -88,15 +88,6 @@
               />
             </div>
 
-            <!-- <div>
-              <p class="mb-6">Heure de presentation</p>
-              <input
-                class="border-2 border-gray-400 mb-6"
-                type="time"
-                v-model="studentUpdate.presentation_time"
-              />
-            </div> -->
-
             <div>
               <p class="mb-6">Salle de presentation</p>
               <input
@@ -107,11 +98,22 @@
             </div>
 
             <div>
-              <div
-                @click="finishPresentation"
-                class="mb-6 bg-yellow-500 hover:bg-yelow-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              <!-- remove alert -->
+              <span v-if="!studentUpdate.is_presentation_finished"
+                >Presentation terminée?</span
               >
-                Presentation terminée
+              <span v-else
+                >Annuler
+                <span class="font-medium">Presentation terminée</span></span
+              >
+              <div
+                @click="
+                  studentUpdate.is_presentation_finished =
+                    !studentUpdate.is_presentation_finished
+                "
+                class="inline-block cursor-pointer mb-6 bg-yellow-500 hover:bg-yellow-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Cliquer ici
               </div>
             </div>
           </div>
@@ -164,9 +166,10 @@
         >
           Valider
         </button>
+
+        <p>{{ studentUpdate }}</p>
       </form>
     </div>
-    <div>{{ studentUpdate }}</div>
   </div>
 </template>
 
@@ -183,7 +186,7 @@ const studentUpdate = ref(student);
 const case_closed = ref(false);
 
 // for the presentation date ------------------------------------------------------
-const convertedDate = computed(() => {
+/* const convertedDate = computed(() => {
   const dateObject = new Date(studentUpdate.value.presentation_date);
   const options = {
     year: "numeric",
@@ -194,7 +197,44 @@ const convertedDate = computed(() => {
     hour12: false,
   };
   return dateObject.toLocaleString(undefined, options);
+}); */
+
+/* convert the studentUpdate.presentation_date to the ISO 8601 format yyyy-MM-ddThh:mm (required by the input type datetime-local)
+const convertedDate = computed(() => {
+  const dateObject = new Date(studentUpdate.value.presentation_date);
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+  };
+  return dateObject.toLocaleString("undefined", options);
+}); */
+
+/* const convertedDate = computed(() => {
+  const dateObject = new Date(studentUpdate.value.presentation_date);
+  console.log("dateObject", dateObject);
+  console.log("dateObject.toISOString()", dateObject.toISOString());
+  return dateObject.toISOString();
+}); */
+
+const convertedDate = computed(() => {
+  const inputDateString = studentUpdate.value.presentation_date;
+  const isoFormattedDateString = inputDateString.replace(" ", "T"); // Convert space to "T" for proper ISO format
+
+  const dateObject = new Date(isoFormattedDateString);
+  const year = dateObject.getFullYear();
+  const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
+  const day = dateObject.getDate().toString().padStart(2, "0");
+  const hours = dateObject.getHours().toString().padStart(2, "0");
+  const minutes = dateObject.getMinutes().toString().padStart(2, "0");
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
 });
+
+// ------------------------------------------------------
 
 // functions
 // ------------------------------------------------------
