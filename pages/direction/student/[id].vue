@@ -145,17 +145,16 @@
               class="flex justify-between"
               v-if="studentUpdate.final_decision && studentUpdate.appreciation"
             >
-              <span v-if="!case_closed" class="font-medium"
+              <span class="font-medium"
                 >Cloturer le dossier (Irréversible !)</span
               >
-              <span v-else class="font-medium"
-                >Annuler la cloture du dossier</span
-              >
+
               <div
                 class="inline-block cursor-pointer mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 @click="case_closed = !case_closed"
               >
-                Cliquer ici
+                <span v-if="!case_closed"> Cliquer ici </span>
+                <span v-else> Annuler </span>
               </div>
             </div>
           </div>
