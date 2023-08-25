@@ -4,21 +4,21 @@
   >
     <div class="m-3 md:w-3/4 lg:w-2/4">
       <h1 class="text-gray-700 font-bold mb-6 text-2xl md:text-4xl">
-        {{ student.lastname + " " + student.firstname }}
+        {{ studentUpdate.lastname + " " + studentUpdate.firstname }}
       </h1>
 
       <div class="mb-6">
         <span class="mr-2"> Theme: </span>
-        <strong v-if="studentUpdate.subject" class="font-bold">{{
+        <span v-if="studentUpdate.subject" class="font-bold">{{
           " " + studentUpdate.subject
-        }}</strong>
-        <strong v-else class="font-bold">???</strong>
+        }}</span>
+        <span v-else class="font-bold">???</span>
       </div>
 
-      <!-- if the case of the student is not closed------------------------------------------------------ -->
+      <!-- if the case of the student is not closed ------------------------------------------------------------------------------------------------------------ -->
       <div v-if="studentUpdate.case_closed"></div>
 
-      <!-- if the case of the student is closed------------------------------------------------------ -->
+      <!-- if the case of the student is closed ------------------------------------------------------------------------------------------------------------ -->
       <form @submit.prevent="updateStudent(studentUpdate)" v-else>
         <div v-if="!studentUpdate.is_ready_for_presentation">
           <div class="flex justify-between mb-6">
@@ -99,23 +99,22 @@
 
             <div>
               <!-- remove alert -->
-              <span v-if="!studentUpdate.is_presentation_finished"
-                >Presentation terminée?</span
+              <span v-if="!is_presentation_finished"
+                >Presentation terminée ? Confirmer</span
               >
               <span v-else
                 >Annuler
                 <span class="font-medium">Presentation terminée</span></span
               >
               <div
-                @click="
-                  studentUpdate.is_presentation_finished =
-                    !studentUpdate.is_presentation_finished
-                "
+                @click="is_presentation_finished = !is_presentation_finished"
                 class="inline-block cursor-pointer mb-6 bg-yellow-500 hover:bg-yellow-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Cliquer ici
               </div>
             </div>
+
+            <p>{{ is_presentation_finished }}</p>
           </div>
 
           <div v-else>
@@ -124,7 +123,7 @@
             </div>
 
             <div
-              v-if="!student.final_decision"
+              v-if="!studentUpdate.final_decision"
               class="mb-6 flex justify-between"
             >
               <label>Decision finale</label>
@@ -183,9 +182,12 @@ const obj = await $fetch("/api/student", {
 const student = obj.request;
 const studentUpdate = ref(student);
 
-const case_closed = ref(false);
+const case_closed = ref(studentUpdate.value.case_closed);
+const is_presentation_finished = ref(
+  studentUpdate.value.is_presentation_finished
+);
 
-// for the presentation date ------------------------------------------------------
+// for the presentation date ------------------------------------------------------------------------------------------------------------
 /* const convertedDate = computed(() => {
   const dateObject = new Date(studentUpdate.value.presentation_date);
   const options = {
@@ -234,27 +236,19 @@ const convertedDate = computed(() => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 });
 
-// ------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 
-// functions
-// ------------------------------------------------------
+// functions ------------------------------------------------------------------------------------------------------------
 const closeCase = () => {
   case_closed.value = !case_closed.value;
   case_closed ? alert("Attention cette action est irreversible") : null;
 };
 
-// ------------------------------------------------------
-const finishPresentation = () => {
-  studentUpdate.is_presentation_finished =
-    !studentUpdate.is_presentation_finished;
-  studentUpdate.is_presentation_finished
-    ? alert("Attention cette action est irreversible")
-    : null;
-};
-
-// ------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 const updateStudent = async (studentUpdate) => {
   studentUpdate.case_closed = case_closed.value;
+  studentUpdate.is_presentation_finished = is_presentation_finished.value;
+  console.log(studentUpdate.is_presentation_finished);
   studentUpdate.presentation_date = convertedDate.value;
 
   const req = await $fetch("/api/student", {
