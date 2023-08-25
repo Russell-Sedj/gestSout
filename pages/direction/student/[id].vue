@@ -23,12 +23,16 @@
         <div v-if="!studentUpdate.is_ready_for_presentation">
           <div class="flex justify-between mb-6">
             <div v-if="studentUpdate.is_profil_information_complete">
-              <span class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6">
+              <span
+                class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
+              >
                 Profil complet
               </span>
             </div>
             <div v-if="!studentUpdate.is_profil_information_complete">
-              <span class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6">
+              <span
+                class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+              >
                 Profil incomplet
               </span>
             </div>
@@ -36,13 +40,13 @@
 
           <div class="flex justify-between mb-6">
             <label
-              class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6"
+              class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
               v-if="!studentUpdate.is_school_fees_paid"
             >
               Scolarité non close
             </label>
             <label
-              class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
+              class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
               v-else
             >
               Scolarité close
@@ -56,12 +60,12 @@
 
           <div class="flex justify-between mb-6">
             <label
-              class="bg-red-300 inline-block px-2 py-1 rounded-md mb-6"
+              class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
               v-if="!studentUpdate.is_credit_enough"
               >Crédits insufisants</label
             >
             <label
-              class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6"
+              class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
               v-else
               >Crédits sufisants</label
             >
@@ -75,7 +79,9 @@
 
         <div v-else>
           <div v-if="!studentUpdate.is_presentation_finished">
-            <p class="bg-green-300 inline-block px-2 py-1 rounded-md mb-6">
+            <p
+              class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
+            >
               Prêt pour presenter
             </p>
 
@@ -99,10 +105,6 @@
 
             <div>
               <span>Presentation terminée</span>
-              <!-- <span v-else
-                >Annuler la confirmation de
-                <span class="font-medium">Presentation terminée</span></span
-              > -->
               <div
                 @click="is_presentation_finished = !is_presentation_finished"
                 class="inline-block cursor-pointer mb-6 bg-yellow-500 hover:bg-yellow-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
@@ -115,7 +117,7 @@
 
           <div v-else>
             <div
-              class="mb-6 bg-green-200 text-green-900 rounded inline-block px-3 py-2"
+              class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
             >
               <p>Presentation terminée</p>
             </div>
