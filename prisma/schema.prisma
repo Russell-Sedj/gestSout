@@ -31,18 +31,18 @@ model student {
   subject      String?
 
   // conditions before ready
-  is_school_fees_paid            Boolean?
-  is_credit_enough               Boolean?
-  is_profil_information_complete Boolean?
-  is_ready_for_presentation      Boolean?
+  is_school_fees_paid            Boolean? @default(false)
+  is_credit_enough               Boolean? @default(false)
+  is_profil_information_complete Boolean? @default(false)
+  is_ready_for_presentation      Boolean? @default(false)
 
   // when profil status is okay
   presentation_date        String?
   presentation_room        String?
-  is_presentation_finished Boolean?
+  is_presentation_finished Boolean? @default(false)
   final_decision           String?
   appreciation             String?
-  case_closed              Boolean?
+  case_closed              Boolean? @default(false)
 
   // foreign keys
   direction   direction @relation(fields: [directionId], references: [id])
@@ -61,7 +61,7 @@ model direction {
   telephone       String
   address         String?
 
-  limit_date DateTime?
+  limit_date String?
 
   student student[]
 }
