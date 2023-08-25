@@ -18,15 +18,16 @@ export default defineEventHandler(async (event) => {
     where: { id: input_data.id },
   });
   if (student) {
+    // console.log("Student -------------------------\n", student);
     if (
+      student.year &&
+      student.password &&
       input_data.firstname &&
       input_data.lastname &&
       input_data.email &&
-      input_data.password &&
       input_data.telephone &&
       input_data.address &&
       input_data.field &&
-      input_data.year &&
       input_data.master &&
       input_data.internMaster &&
       input_data.subject
