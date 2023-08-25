@@ -72,6 +72,5 @@ definePageMeta({
     navigateAuthenticatedTo: "/",
   },
 });
-
 const currentUser = await $fetch("/api/me");
 </script>

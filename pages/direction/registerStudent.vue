@@ -131,12 +131,9 @@
 </template>
 
 <script setup>
-// definePageMeta({
-//   auth: {
-//     unauthenticatedOnly: false,
-//     navigateAuthenticatedTo: "/",
-//   },
-// });
+if (currentUser.role === "student") {
+  navigateTo("/");
+}
 
 useHead({
   title: "Inscription Etudiant",

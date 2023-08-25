@@ -165,6 +165,12 @@
 </template>
 
 <script setup>
+const currentUser = await $fetch("/api/me");
+
+if (currentUser.role === "direction") {
+  navigateTo("/");
+}
+
 useHead({
   title: "Profil Etudiant",
   meta: [
@@ -175,7 +181,6 @@ useHead({
   ],
 });
 
-const currentUser = await $fetch("/api/me");
 const student = ref({
   id: currentUser.id,
   lastname: currentUser.lastname,

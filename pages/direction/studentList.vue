@@ -71,13 +71,14 @@
 </template>
 
 <script setup>
-const filterValue = ref("enCours");
-const year = ref("2023-2024");
-
 const currentUser = await $fetch("/api/me");
+
 if (currentUser.role === "student") {
   navigateTo("/");
 }
+
+const filterValue = ref("enCours");
+const year = ref("2023-2024");
 
 const studentList = ref(null);
 

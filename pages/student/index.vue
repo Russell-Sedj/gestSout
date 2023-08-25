@@ -41,5 +41,7 @@
 <script setup>
 const currentUser = await $fetch("/api/me");
 
-currentUser;
+if (currentUser.role === "direction") {
+  navigateTo("/");
+}
 </script>

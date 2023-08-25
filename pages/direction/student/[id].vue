@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
     <nuxt-link
+      v-if="!studentUpdate.case_closed"
       :to="`/direction/student/profil${student.id}`"
       class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:text-xl"
     >
@@ -215,6 +216,12 @@
 </template>
 
 <script setup>
+const currentUser = await $fetch("/api/me");
+
+if (currentUser.role === "student") {
+  navigateTo("/");
+}
+
 const route = useRoute();
 const studentId = route.params.id;
 const obj = await $fetch("/api/student", {
