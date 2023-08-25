@@ -7,7 +7,7 @@
         {{ studentUpdate.lastname + " " + studentUpdate.firstname }}
       </h1>
 
-      <div class="mb-6">
+      <div class="mb-6 flex justify-between">
         <span class="mr-2"> Theme: </span>
         <span v-if="studentUpdate.subject" class="font-bold">{{
           " " + studentUpdate.subject
@@ -98,24 +98,25 @@
             </div>
 
             <div>
-              <span v-if="!is_presentation_finished"
-                >Presentation terminée ? Confirmer</span
-              >
-              <span v-else
-                >Annuler
+              <span>Presentation terminée</span>
+              <!-- <span v-else
+                >Annuler la confirmation de
                 <span class="font-medium">Presentation terminée</span></span
-              >
+              > -->
               <div
                 @click="is_presentation_finished = !is_presentation_finished"
                 class="inline-block cursor-pointer mb-6 bg-yellow-500 hover:bg-yellow-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
-                Cliquer ici
+                <span v-if="!is_presentation_finished"> Cliquer ici </span>
+                <span v-else> Annuler </span>
               </div>
             </div>
           </div>
 
           <div v-else>
-            <div class="mb-6">
+            <div
+              class="mb-6 bg-green-200 text-green-900 rounded inline-block px-3 py-2"
+            >
               <p>Presentation terminée</p>
             </div>
 
@@ -147,7 +148,9 @@
               <span v-if="!case_closed" class="font-medium"
                 >Cloturer le dossier (Irréversible !)</span
               >
-              <span v-else>Annuler la cloture du dossier</span>
+              <span v-else class="font-medium"
+                >Annuler la cloture du dossier</span
+              >
               <div
                 class="inline-block cursor-pointer mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 @click="case_closed = !case_closed"
