@@ -98,7 +98,6 @@
             </div>
 
             <div>
-              <!-- remove alert -->
               <span v-if="!is_presentation_finished"
                 >Presentation terminée ? Confirmer</span
               >
@@ -113,8 +112,6 @@
                 Cliquer ici
               </div>
             </div>
-
-            <p>{{ is_presentation_finished }}</p>
           </div>
 
           <div v-else>
@@ -122,10 +119,7 @@
               <p>Presentation terminée</p>
             </div>
 
-            <div
-              v-if="!studentUpdate.final_decision"
-              class="mb-6 flex justify-between"
-            >
+            <div class="mb-6 flex justify-between">
               <label>Decision finale</label>
               <select v-model="final_decision">
                 <option value="Très bien">Très bien</option>
@@ -136,8 +130,8 @@
               </select>
             </div>
 
-            <div v-if="!studentUpdate.appreciation">
-              <p class="mb-6">Appreciation</p>
+            <div>
+              <p class="mb-2">Appreciation</p>
               <textarea
                 class="border-2 border-gray-400 mb-6"
                 rows="4"
@@ -147,13 +141,18 @@
             </div>
 
             <div
+              class="flex justify-between"
               v-if="studentUpdate.final_decision && studentUpdate.appreciation"
             >
-              <div
-                class="mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                @click="closeCase"
+              <span v-if="!case_closed" class="font-medium"
+                >Cloturer le dossier (Irréversible !)</span
               >
-                Cloturer le dossier
+              <span v-else>Annuler la cloture du dossier</span>
+              <div
+                class="inline-block cursor-pointer mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                @click="case_closed = !case_closed"
+              >
+                Cliquer ici
               </div>
             </div>
           </div>
@@ -241,12 +240,6 @@ const convertedDate = computed(() => {
 // ------------------------------------------------------------------------------------------------------------
 
 // functions ------------------------------------------------------------------------------------------------------------
-const closeCase = () => {
-  case_closed.value = !case_closed.value;
-  case_closed ? alert("Attention cette action est irreversible") : null;
-};
-
-// ------------------------------------------------------------------------------------------------------------
 const updateStudent = async (studentUpdate) => {
   studentUpdate.case_closed = case_closed.value;
   studentUpdate.is_presentation_finished = is_presentation_finished.value;
