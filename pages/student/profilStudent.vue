@@ -210,6 +210,7 @@ async function editStudent(student) {
         alert("Erreur lors de la modification du profil");
       } else if (!req.message) {
         alert("Profil modifié avec succès");
+        navigateTo("/student/");
       }
     } else {
       alert("Erreur lors de la modification du profil");

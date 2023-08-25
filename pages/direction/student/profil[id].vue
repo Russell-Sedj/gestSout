@@ -184,6 +184,8 @@ const obj = await $fetch("/api/student", {
 });
 const student = obj.request;
 
+const studentUrl = "/direction/student/" + studentId;
+
 // edit student
 async function editStudent(student) {
   let req = null;
@@ -206,6 +208,7 @@ async function editStudent(student) {
         alert("Erreur lors de la modification du profil");
       } else if (!req.message) {
         alert("Profil modifié avec succès");
+        navigateTo(studentUrl);
       }
     } else {
       alert("Erreur lors de la modification du profil");

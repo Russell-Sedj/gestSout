@@ -54,7 +54,11 @@
         </div>
 
         <!-- if the case of the student is closed ------------------------------------------------------------------------------------------------------------ -->
-        <form @submit.prevent="updateStudent(studentUpdate)" v-else>
+        <form
+          @submit.prevent="updateStudent(studentUpdate)"
+          v-else
+          class="mt-6"
+        >
           <div v-if="!studentUpdate.is_ready_for_presentation">
             <div class="flex justify-between mb-6">
               <div v-if="studentUpdate.is_profil_information_complete">
@@ -138,7 +142,7 @@
                 />
               </div>
 
-              <div>
+              <div class="flex justify-between">
                 <span>Presentation terminée</span>
                 <div
                   @click="is_presentation_finished = !is_presentation_finished"
