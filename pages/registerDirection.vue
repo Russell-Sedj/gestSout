@@ -56,21 +56,39 @@
             >Nom de l'universite</label
           >
         </div>
-        <div class="relative z-0 w-full mb-8 group">
-          <input
-            type="tel"
-            name="floating_phone"
-            id="floating_phone"
-            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-            v-model="direction.telephone"
-          />
-          <label
-            for="floating_phone"
-            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
-            >Numero de telephone</label
-          >
+        <div class="grid md:grid-cols-2 md:gap-6">
+          <div class="relative z-0 w-full mb-8 group">
+            <input
+              type="tel"
+              name="floating_phone"
+              id="floating_phone"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+              v-model="direction.telephone"
+            />
+            <label
+              for="floating_phone"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
+              >Numero de telephone</label
+            >
+          </div>
+
+          <div class="relative z-0 w-full mb-8 group">
+            <input
+              type="text"
+              name="floating_address"
+              id="floating_address"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              v-model="direction.address"
+            />
+            <label
+              for="floating_address"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
+              >Adresse</label
+            >
+          </div>
         </div>
 
         <button
@@ -92,6 +110,12 @@
 //   },
 // });
 
+const currentUser = await $fetch("/api/me");
+
+if (currentUser.role === "direction" || currentUser.role === "student") {
+  navigateTo("/");
+}
+
 useHead({
   title: "Inscription Service Examen",
   meta: [
@@ -109,14 +133,15 @@ const direction = ref({
   telephone: null,
 });
 
-function resetDirection() {
-  direction.value = {
-    email: null,
-    password: null,
-    university_name: null,
-    telephone: null,
-  };
-}
+// function resetDirection() {
+//   direction.value = {
+//     email: null,
+//     password: null,
+//     university_name: null,
+//     telephone: null,
+//     address: null,
+//   };
+// }
 
 async function addDirection(direction) {
   let req = null;
@@ -134,7 +159,8 @@ async function addDirection(direction) {
     if (req) {
       if (!req.message) {
         alert("Service Examen ajouté avec succès");
-        resetDirection();
+        // resetDirection();
+        navigateTo("/");
       } else if (req.message) {
         alert("Erreur lors de l'ajout du Service Examen");
       }
