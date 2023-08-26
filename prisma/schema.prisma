@@ -73,7 +73,7 @@ model admin {
   role       String   @default("admin")
 
   name      String
-  email     String @unique
+  email     String
   password  String
   telephone String
 }
