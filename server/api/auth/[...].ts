@@ -18,10 +18,11 @@ export default NuxtAuthHandler({
     CredentialsProvider.default({
       name: "Credentials",
       async authorize(credentials: any) {
+        // console.log("credentials ----------------------------", credentials);
+
         const student_list = await $fetch("/api/student/");
         const direction_list = await $fetch("/api/direction/");
-
-        // console.log("credentials ----------------------------", credentials);
+        const admin_list = await $fetch("/api/admin/");
 
         const userStudent = student_list.find(
           (userStudent) =>
@@ -32,6 +33,11 @@ export default NuxtAuthHandler({
           (userDirection) =>
             userDirection.email === credentials.email &&
             userDirection.password === credentials.password
+        );
+        const userAdmin = admin_list.find(
+          (userAdmin) =>
+            userAdmin.email === credentials.email &&
+            userAdmin.password === credentials.password
         );
 
         if (
@@ -46,6 +52,12 @@ export default NuxtAuthHandler({
           credentials?.password === userDirection.password
         ) {
           return userDirection;
+        } else if (
+          userAdmin &&
+          credentials?.email === userAdmin.email &&
+          credentials?.password === userAdmin.password
+        ) {
+          return userAdmin;
         } else {
           console.error(
             "Warning: Malicious login attempt registered, bad credentials provided"
