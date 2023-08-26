@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   let request = null;
-  let error = null;
 
   if (body.id) {
     await prisma.student
