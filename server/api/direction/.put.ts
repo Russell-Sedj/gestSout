@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
       input_data[key] = body[key];
     }
   }
+  // console.log("input_data---------------------------------------", input_data);
 
   if (input_data.id) {
     await prisma.direction
