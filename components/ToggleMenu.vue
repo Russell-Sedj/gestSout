@@ -16,6 +16,39 @@
       <nuxt-link class="block px-4 py-2 hover:bg-gray-100" to="/"
         >Acceuil</nuxt-link
       >
+
+      <nuxt-link
+        class="block px-4 py-2 hover:bg-gray-100"
+        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
+        to="/direction"
+      >
+        Dashboard
+      </nuxt-link>
+
+      <nuxt-link
+        class="block px-4 py-2 hover:bg-gray-100"
+        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
+        to="/direction/profilDirection"
+      >
+        Profil
+      </nuxt-link>
+
+      <nuxt-link
+        class="block px-4 py-2 hover:bg-gray-100"
+        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
+        to="/direction/registerStudent"
+      >
+        Ajouter un etudiant
+      </nuxt-link>
+
+      <nuxt-link
+        class="block px-4 py-2 hover:bg-gray-100"
+        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
+        to="/direction/studentList"
+      >
+        Liste des etudiants
+      </nuxt-link>
+
       <nuxt-link
         class="block px-4 py-2 hover:bg-gray-100"
         v-if="loggedIn"
@@ -23,9 +56,11 @@
         @click="signOut"
         >Deconnexion</nuxt-link
       >
+
       <nuxt-link class="block px-4 py-2 hover:bg-gray-100" to="/login" v-else
         >Connexion</nuxt-link
       >
+
       <nuxt-link class="block px-4 py-2 hover:bg-gray-100" to="/about"
         >A propos</nuxt-link
       >
@@ -37,4 +72,6 @@
 const { signOut, status } = useAuth();
 const loggedIn = computed(() => status.value === "authenticated");
 const isOpen = ref(false);
+
+const currentUser = await $fetch("/api/me");
 </script>

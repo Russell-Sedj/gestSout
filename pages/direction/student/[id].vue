@@ -3,12 +3,12 @@
     <nuxt-link
       v-if="!studentUpdate.is_presentation_finished"
       :to="`/direction/student/profil${student.id}`"
-      class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 m-2 relative top-3 md:text-xl"
+      class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:top-7 md:text-xl"
     >
       Modifier Profil
     </nuxt-link>
     <div
-      class="md:flex md:justify-center md:items-center mt-8 mb-4 lg:mt-16 md:text-xl"
+      class="md:flex md:justify-center md:items-center mt-12 mb-4 lg:mt-20 md:text-xl"
     >
       <div class="m-3 md:w-3/4 lg:w-2/4">
         <h1 class="text-gray-700 font-bold mb-6 text-2xl md:text-4xl">
@@ -231,6 +231,8 @@ const obj = await $fetch("/api/student", {
   body: { uniqueId: studentId },
 });
 const student = obj.request;
+
+// studentUpdate is a reactive object
 const studentUpdate = ref(student);
 
 // variables ------------------------------------------------------------------------------------------------------------
