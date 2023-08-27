@@ -1,9 +1,9 @@
 <template>
   <div class="relative">
     <nuxt-link
-      v-if="!studentUpdate.case_closed"
+      v-if="!studentUpdate.is_presentation_finished"
       :to="`/direction/student/profil${student.id}`"
-      class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:text-xl"
+      class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 m-2 relative top-3 md:text-xl"
     >
       Modifier Profil
     </nuxt-link>
@@ -218,10 +218,12 @@
 <script setup>
 const currentUser = await $fetch("/api/me");
 
+// check if the role is authorized to access this page
 if (currentUser.role === "student") {
   navigateTo("/");
 }
 
+// get the student id from the url
 const route = useRoute();
 const studentId = route.params.id;
 const obj = await $fetch("/api/student", {
@@ -231,6 +233,7 @@ const obj = await $fetch("/api/student", {
 const student = obj.request;
 const studentUpdate = ref(student);
 
+// variables ------------------------------------------------------------------------------------------------------------
 const case_closed = ref(studentUpdate.value.case_closed);
 const is_presentation_finished = ref(
   studentUpdate.value.is_presentation_finished
