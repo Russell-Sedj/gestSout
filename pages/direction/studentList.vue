@@ -35,7 +35,7 @@
             class="border-black border-2 rounded-full my-1 mx-4 px-4 py-2 inline-block w-auto cursor-pointer"
             @click="filterValue = 'eligible'"
           >
-            Eligible
+            Eligibles
             <input
               type="radio"
               name="filterValue"
@@ -49,7 +49,7 @@
             class="border-black border-2 rounded-full my-1 mx-4 px-4 py-2 inline-block w-auto cursor-pointer"
             @click="filterValue = 'termine'"
           >
-            Terminé
+            Terminés
             <input
               type="radio"
               name="filterValue"
@@ -85,13 +85,20 @@
 </template>
 
 <script setup>
+// get the current user
 const currentUser = await $fetch("/api/me");
 
+// check if the user is authorized to access this page
 if (currentUser.role === "student") {
   navigateTo("/");
 }
 
-const filterValue = ref("all");
+// get the filter value from the url
+const route = useRoute();
+// const filterValue = ref("all");
+const filterValue = ref(route.query.filterValue || "all");
+
+// current year
 const year = ref("2023-2024");
 
 const studentList = ref(null);
