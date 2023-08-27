@@ -131,6 +131,10 @@
 </template>
 
 <script setup>
+// get current user
+const currentUser = await $fetch("/api/me");
+
+// redirect if not admin or direction
 if (currentUser.role === "student") {
   navigateTo("/");
 }
@@ -144,8 +148,6 @@ useHead({
     },
   ],
 });
-
-const currentUser = await $fetch("/api/me");
 
 const student = ref({
   firstname: null,
