@@ -41,11 +41,11 @@
         </nuxt-link>
       </div> -->
     </div>
-    <div class="hidden md:flex">
+    <div class="hidden md:flex justify-between h-auto p-3 bg-gray-300">
       <nuxt-link
         v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
         to="/direction"
-        class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:text-xl"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
       >
         Dashboard
       </nuxt-link>
@@ -53,7 +53,7 @@
       <nuxt-link
         v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
         to="/direction/profilDirection"
-        class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:text-xl"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
       >
         Profil
       </nuxt-link>
@@ -61,7 +61,7 @@
       <nuxt-link
         v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
         to="/direction/registerStudent"
-        class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:text-xl"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
       >
         Ajouter un etudiant
       </nuxt-link>
@@ -69,7 +69,7 @@
       <nuxt-link
         v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
         to="/direction/studentList"
-        class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:text-xl"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
       >
         List des etudiants
       </nuxt-link>
