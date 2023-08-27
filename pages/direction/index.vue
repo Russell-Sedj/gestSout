@@ -57,16 +57,6 @@ if (currentUser.role === "student") {
 const runtimeConfig = useRuntimeConfig();
 const currentYear = runtimeConfig.public.currentYear;
 
-// const list = computed(async () => {
-//   const studentList = await $fetch("/api/student/", {
-//     method: "POST",
-//     body: { listDirectionId: currentUser.id, year: currentYear },
-//   });
-//   if (studentList) {
-//     return studentList;
-//   }
-// });
-
 const studentList = ref(null);
 studentList.value = (
   await $fetch("/api/student/", {
@@ -75,5 +65,19 @@ studentList.value = (
   })
 ).request;
 
-console.log(studentList.value);
+const eligibleList = ref(
+  studentList.value.filter(
+    (student) => student.is_ready_for_presentation === true
+  )
+);
+
+const inProgressList = ref(
+  studentList.value.filter(
+    (student) => student.is_ready_for_presentation === false
+  )
+);
+
+const finishedList = ref(
+  studentList.value.filter((student) => student.case_closed)
+);
 </script>
