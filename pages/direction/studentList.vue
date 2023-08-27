@@ -5,6 +5,20 @@
         <div class="flex justify-between">
           <li
             class="border-black border-2 rounded-full my-1 mx-4 px-4 py-2 inline-block w-auto cursor-pointer"
+            @click="filterValue = 'all'"
+          >
+            Tous
+            <input
+              type="radio"
+              name="filterValue"
+              value="all"
+              v-model="filterValue"
+            />
+          </li>
+        </div>
+        <div class="flex justify-between">
+          <li
+            class="border-black border-2 rounded-full my-1 mx-4 px-4 py-2 inline-block w-auto cursor-pointer"
             @click="filterValue = 'enCours'"
           >
             En cours
@@ -77,7 +91,7 @@ if (currentUser.role === "student") {
   navigateTo("/");
 }
 
-const filterValue = ref("enCours");
+const filterValue = ref("all");
 const year = ref("2023-2024");
 
 const studentList = ref(null);
@@ -96,7 +110,9 @@ watch(year, async () => {
 
 const filteredList = computed(() => {
   if (studentList.value.request) {
-    if (filterValue.value === "eligible") {
+    if (filterValue.value === "all") {
+      return studentList.value.request;
+    } else if (filterValue.value === "eligible") {
       return studentList.value.request.filter(
         (student) => student.is_ready_for_presentation === true
       );
