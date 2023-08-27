@@ -66,7 +66,7 @@
         class="transform hover:scale-110 ease-out duration-300 flex justify-center w-2/5 m-4 py-4 md:py-16 md:mr-10 rounded bg-purple-500 text-white"
       >
         <div>
-          <p>Terminé</p>
+          <p>Terminés</p>
           <br />
           <p class="flex justify-center">
             {{ finishedList ? finishedList.length : "Chargement..." }}
