@@ -28,10 +28,19 @@
         <ToggleMenu />
       </div>
     </header>
+    <nuxt-link
+      v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
+      to="/direction"
+      class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 m-2 relative top-3 md:text-xl"
+    >
+      Dashboard
+    </nuxt-link>
   </div>
 </template>
 
 <script setup>
 const { status, signOut } = useAuth();
 const loggedIn = computed(() => status.value === "authenticated");
+
+const currentUser = await $fetch("/api/me");
 </script>
