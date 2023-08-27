@@ -11,7 +11,9 @@
         <div>
           <p>Etudiants</p>
           <br />
-          <p class="flex justify-center">50</p>
+          <p class="flex justify-center">
+            {{ studentList ? studentList.length : "Chargement..." }}
+          </p>
         </div>
       </div>
       <div
@@ -27,7 +29,7 @@
         class="transform hover:scale-110 ease-out duration-300 flex justify-center w-2/5 m-4 py-4 md:py-16 md:ml-10 rounded bg-red-500 text-white"
       >
         <div>
-          <p>Eligibles</p>
+          <p>En cours</p>
           <br />
           <p class="flex justify-center">12</p>
         </div>
@@ -36,7 +38,7 @@
         class="transform hover:scale-110 ease-out duration-300 flex justify-center w-2/5 m-4 py-4 md:py-16 md:mr-10 rounded bg-purple-500 text-white"
       >
         <div>
-          <p>Etudiants</p>
+          <p>Terminé</p>
           <br />
           <p class="flex justify-center">50</p>
         </div>
@@ -55,8 +57,23 @@ if (currentUser.role === "student") {
 const runtimeConfig = useRuntimeConfig();
 const currentYear = runtimeConfig.public.currentYear;
 
-const studentList = await $fetch("/api/student/", {
-  method: "POST",
-  body: { listDirectionId: currentUser.id, year: currentYear },
-});
+// const list = computed(async () => {
+//   const studentList = await $fetch("/api/student/", {
+//     method: "POST",
+//     body: { listDirectionId: currentUser.id, year: currentYear },
+//   });
+//   if (studentList) {
+//     return studentList;
+//   }
+// });
+
+const studentList = ref(null);
+studentList.value = (
+  await $fetch("/api/student/", {
+    method: "POST",
+    body: { listDirectionId: currentUser.id, year: currentYear },
+  })
+).request;
+
+console.log(studentList.value);
 </script>
