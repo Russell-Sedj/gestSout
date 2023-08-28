@@ -70,7 +70,10 @@
 
         <nuxt-link
           class="block px-4 py-2 hover:bg-gray-100"
-          v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
+          v-if="
+            (currentUser.role === 'student' || currentUser.role === 'admin') &&
+            !currentUser.case_closed
+          "
           to="/student/profilStudent"
         >
           Profil
@@ -86,8 +89,7 @@
       <nuxt-link
         class="block px-4 py-2 hover:bg-gray-100"
         v-if="loggedIn"
-        to="/"
-        @click="signOut"
+        to="/logout"
         >Deconnexion</nuxt-link
       >
 
@@ -103,7 +105,7 @@
 </template>
 
 <script setup>
-const { signOut, status } = useAuth();
+const { status } = useAuth();
 const loggedIn = computed(() => status.value === "authenticated");
 const isOpen = ref(false);
 

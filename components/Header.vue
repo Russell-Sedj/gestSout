@@ -19,7 +19,8 @@
           <nuxt-link to="/about">A propos</nuxt-link>
         </li>
         <li class="mx-2" v-if="loggedIn">
-          <nuxt-link to="/" @click="signOut">Deconnexion</nuxt-link>
+          <!-- <nuxt-link to="/" @click="signOut">Deconnexion</nuxt-link> -->
+          <nuxt-link to="/logout">Deconnexion</nuxt-link>
         </li>
       </ul>
 
@@ -70,19 +71,22 @@
     <!-- double header student -->
     <div
       v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
-      class="hidden md:flex h-auto p-3 bg-gray-300"
+      class="hidden md:flex md:justify-center h-auto p-3 bg-gray-300"
     >
       <nuxt-link
         v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
         to="/student/"
-        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-5 md:text-xl"
       >
         Statut
       </nuxt-link>
       <nuxt-link
-        v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
+        v-if="
+          (currentUser.role === 'student' || currentUser.role === 'admin') &&
+          !currentUser.case_closed
+        "
         to="/student/profilStudent"
-        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-5 md:text-xl"
       >
         Profil
       </nuxt-link>
@@ -91,7 +95,7 @@
 </template>
 
 <script setup>
-const { status, signOut } = useAuth();
+const { status } = useAuth();
 const loggedIn = computed(() => status.value === "authenticated");
 
 const currentUser = await $fetch("/api/me");
