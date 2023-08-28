@@ -169,6 +169,8 @@ const currentUser = await $fetch("/api/me");
 
 if (currentUser.role === "direction") {
   navigateTo("/");
+} else if (currentUser.case_closed === true) {
+  navigateTo("/student/");
 }
 
 useHead({

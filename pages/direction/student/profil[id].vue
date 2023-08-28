@@ -189,8 +189,12 @@ const obj = await $fetch("/api/student", {
   body: { uniqueId: studentId },
 });
 const student = obj.request;
-
 const studentUrl = "/direction/student/" + studentId;
+
+// if the profil is already closed
+if (student.case_closed === true) {
+  navigateTo(studentUrl);
+}
 
 // edit student
 async function editStudent(student) {
