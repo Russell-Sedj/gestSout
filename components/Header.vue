@@ -28,20 +28,12 @@
         <ToggleMenu />
       </div>
     </header>
-    <div>
-      <!-- <div class="mb-3">
-        <nuxt-link
-          v-if="
-            currentUser.role === 'direction' || currentUser.role === 'admin'
-          "
-          to="/direction"
-          class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:text-xl"
-        >
-          Dashboard
-        </nuxt-link>
-      </div> -->
-    </div>
-    <div class="hidden md:flex justify-between h-auto p-3 bg-gray-300">
+
+    <!-- double header direction -->
+    <div
+      v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
+      class="hidden md:flex justify-between h-auto p-3 bg-gray-300"
+    >
       <nuxt-link
         v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
         to="/direction"
@@ -72,6 +64,27 @@
         class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
       >
         List des etudiants
+      </nuxt-link>
+    </div>
+
+    <!-- double header student -->
+    <div
+      v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
+      class="hidden md:flex h-auto p-3 bg-gray-300"
+    >
+      <nuxt-link
+        v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
+        to="/student/"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
+      >
+        Dashboard
+      </nuxt-link>
+      <nuxt-link
+        v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
+        to="/student/profilStudent"
+        class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
+      >
+        Profil
       </nuxt-link>
     </div>
   </div>

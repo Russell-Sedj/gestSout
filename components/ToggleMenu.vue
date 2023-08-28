@@ -13,41 +13,75 @@
       class="absolute right-0 z-10 mt-2 w-48 text-lg bg-white rounded-md shadow-xl text-gray-700 font-bold"
       @click.away="isOpen = false"
     >
+      <!-- case the user is direction -->
+      <div>
+        <nuxt-link
+          class="block px-4 py-2 hover:bg-gray-100"
+          v-if="
+            currentUser.role === 'direction' || currentUser.role === 'admin'
+          "
+          to="/direction"
+        >
+          Dashboard
+        </nuxt-link>
+
+        <nuxt-link
+          class="block px-4 py-2 hover:bg-gray-100"
+          v-if="
+            currentUser.role === 'direction' || currentUser.role === 'admin'
+          "
+          to="/direction/profilDirection"
+        >
+          Profil
+        </nuxt-link>
+
+        <nuxt-link
+          class="block px-4 py-2 hover:bg-gray-100"
+          v-if="
+            currentUser.role === 'direction' || currentUser.role === 'admin'
+          "
+          to="/direction/registerStudent"
+        >
+          Ajouter un etudiant
+        </nuxt-link>
+
+        <nuxt-link
+          class="block px-4 py-2 hover:bg-gray-100"
+          v-if="
+            currentUser.role === 'direction' || currentUser.role === 'admin'
+          "
+          to="/direction/studentList"
+        >
+          Liste des etudiants
+        </nuxt-link>
+
+        <div class="border-t-2 border-gray-300 w-full"></div>
+      </div>
+
+      <!-- case the user is student -->
+      <div>
+        <nuxt-link
+          class="block px-4 py-2 hover:bg-gray-100"
+          v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
+          to="/student"
+        >
+          Dashboard
+        </nuxt-link>
+
+        <nuxt-link
+          class="block px-4 py-2 hover:bg-gray-100"
+          v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
+          to="/student/profilStudent"
+        >
+          Profil
+        </nuxt-link>
+        <div class="border-t-2 border-gray-300 w-full"></div>
+      </div>
+
+      <!-- normal menu -->
       <nuxt-link class="block px-4 py-2 hover:bg-gray-100" to="/"
         >Acceuil</nuxt-link
       >
-
-      <nuxt-link
-        class="block px-4 py-2 hover:bg-gray-100"
-        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
-        to="/direction"
-      >
-        Dashboard
-      </nuxt-link>
-
-      <nuxt-link
-        class="block px-4 py-2 hover:bg-gray-100"
-        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
-        to="/direction/profilDirection"
-      >
-        Profil
-      </nuxt-link>
-
-      <nuxt-link
-        class="block px-4 py-2 hover:bg-gray-100"
-        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
-        to="/direction/registerStudent"
-      >
-        Ajouter un etudiant
-      </nuxt-link>
-
-      <nuxt-link
-        class="block px-4 py-2 hover:bg-gray-100"
-        v-if="currentUser.role === 'direction' || currentUser.role === 'admin'"
-        to="/direction/studentList"
-      >
-        Liste des etudiants
-      </nuxt-link>
 
       <nuxt-link
         class="block px-4 py-2 hover:bg-gray-100"
