@@ -20,7 +20,7 @@
           v-if="
             currentUser.role === 'direction' || currentUser.role === 'admin'
           "
-          to="/direction"
+          to="/direction/"
         >
           Dashboard
         </nuxt-link>
@@ -63,7 +63,7 @@
         <nuxt-link
           class="block px-4 py-2 hover:bg-gray-100"
           v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
-          to="/student"
+          to="/student/"
         >
           Statut
         </nuxt-link>
