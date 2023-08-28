@@ -2,8 +2,12 @@
   <div class="text-xl md:text-2xl">
     <h1 class="m-6 text-2xl md:text-3xl flex justify-center">
       Tableau de bord:
-      <strong class="font-bold ml-1">{{ currentUser.university_name }}</strong>
+      <strong v-if="currentUser" class="font-bold ml-1">{{
+        currentUser.university_name
+      }}</strong>
+      <strong v-else class="font-bold ml-1">???</strong>
     </h1>
+
     <div class="flex flex-wrap justify-between m-3">
       <nuxt-link
         :to="{
@@ -22,6 +26,7 @@
           </p>
         </div>
       </nuxt-link>
+
       <nuxt-link
         :to="{
           path: '/direction/studentList',
@@ -39,6 +44,7 @@
           </p>
         </div>
       </nuxt-link>
+
       <nuxt-link
         :to="{
           path: '/direction/studentList',
@@ -56,6 +62,7 @@
           </p>
         </div>
       </nuxt-link>
+
       <nuxt-link
         :to="{
           path: '/direction/studentList',
@@ -78,9 +85,10 @@
 </template>
 
 <script setup>
-const currentUser = await $fetch("/api/me");
+const currentUser = ref(null);
+currentUser.value = await $fetch("/api/me");
 
-if (currentUser.role === "student") {
+if (currentUser.value.role === "student") {
   navigateTo("/");
 }
 
@@ -91,7 +99,7 @@ const studentList = ref(null);
 studentList.value = (
   await $fetch("/api/student/", {
     method: "POST",
-    body: { listDirectionId: currentUser.id, year: currentYear },
+    body: { listDirectionId: currentUser.value.id, year: currentYear },
   })
 ).request;
 

@@ -110,9 +110,13 @@
 //   },
 // });
 
-const currentUser = await $fetch("/api/me");
+const currentUser = ref(null);
+currentUser.value = await $fetch("/api/me");
 
-if (currentUser.role === "direction" || currentUser.role === "student") {
+if (
+  currentUser.value.role === "direction" ||
+  currentUser.value.role === "student"
+) {
   navigateTo("/");
 }
 
@@ -133,16 +137,6 @@ const direction = ref({
   telephone: null,
 });
 
-// function resetDirection() {
-//   direction.value = {
-//     email: null,
-//     password: null,
-//     university_name: null,
-//     telephone: null,
-//     address: null,
-//   };
-// }
-
 async function addDirection(direction) {
   let req = null;
 
@@ -159,7 +153,6 @@ async function addDirection(direction) {
     if (req) {
       if (!req.message) {
         alert("Service Examen ajouté avec succès");
-        // resetDirection();
         navigateTo("/");
       } else if (req.message) {
         alert("Erreur lors de l'ajout du Service Examen");

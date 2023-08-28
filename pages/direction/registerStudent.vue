@@ -1,5 +1,3 @@
-<!-- https://flowbite.com/docs/components/forms -->
-
 <template>
   <div
     class="md:flex md:justify-center md:items-center mt-11 mb-9 md:mb-4 lg:mt-20"
@@ -132,10 +130,11 @@
 
 <script setup>
 // get current user
-const currentUser = await $fetch("/api/me");
+const currentUser = ref(null);
+currentUser.value = await $fetch("/api/me");
 
 // redirect if not admin or direction
-if (currentUser.role === "student") {
+if (currentUser.value.role === "student") {
   navigateTo("/");
 }
 
@@ -157,7 +156,7 @@ const student = ref({
   address: null,
   field: null,
   year: "2023-2024",
-  directionId: currentUser.id,
+  directionId: currentUser.value.id,
 });
 
 function resetStudent() {
@@ -169,7 +168,7 @@ function resetStudent() {
     address: null,
     field: null,
     year: null,
-    directionId: currentUser.id,
+    directionId: currentUser.value.id,
   };
 }
 

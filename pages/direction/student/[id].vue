@@ -1,228 +1,237 @@
 <template>
-  <div class="relative">
-    <nuxt-link
-      v-if="!studentUpdate.is_presentation_finished"
-      :to="`/direction/student/profil${student.id}`"
-      class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:top-7 md:text-xl"
-    >
-      Modifier Profil
-    </nuxt-link>
-    <div
-      class="md:flex md:justify-center md:items-center mt-12 mb-4 lg:mt-20 md:text-xl"
-    >
-      <div class="m-3 md:w-3/4 lg:w-2/4">
-        <h1 class="text-gray-700 font-bold mb-6 text-2xl md:text-4xl">
-          {{ studentUpdate.lastname + " " + studentUpdate.firstname }}
-        </h1>
-
-        <div class="mb-6 flex justify-between">
-          <div class="w-auto mr-2">Theme</div>
-          <div v-if="studentUpdate.subject" class="font-medium">
-            {{ studentUpdate.subject }}
-          </div>
-          <div v-else class="font-medium">???</div>
-        </div>
-
-        <div class="mb-6 flex justify-between">
-          <div class="w-auto mr-2">Filière</div>
-          <div v-if="studentUpdate.field" class="font-medium">
-            {{ studentUpdate.field }}
-          </div>
-          <div v-else class="font-medium">???</div>
-        </div>
-
-        <!-- if the case of the student is not closed ------------------------------------------------------------------------------------------------------------ -->
-        <div v-if="studentUpdate.case_closed">
-          <div class="mb-6 flex justify-between">
-            <div class="w-auto mr-2">Maitre de Stage</div>
-            <div class="font-medium">{{ studentUpdate.master }}</div>
-          </div>
+  <div>
+    <div v-if="studentUpdate" class="relative">
+      <nuxt-link
+        v-if="!studentUpdate.is_presentation_finished"
+        :to="`/direction/student/profil${student.id}`"
+        class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:top-7 md:text-xl"
+      >
+        Modifier Profil
+      </nuxt-link>
+      <div
+        class="md:flex md:justify-center md:items-center mt-12 mb-4 lg:mt-20 md:text-xl"
+      >
+        <div class="m-3 md:w-3/4 lg:w-2/4">
+          <h1 class="text-gray-700 font-bold mb-6 text-2xl md:text-4xl">
+            {{ studentUpdate.lastname + " " + studentUpdate.firstname }}
+          </h1>
 
           <div class="mb-6 flex justify-between">
-            <div class="w-auto mr-2">Decision finale</div>
-            <div class="font-medium">{{ studentUpdate.final_decision }}</div>
-          </div>
-
-          <div class="mb-6">
-            <div class="mb-2">Appreciation</div>
-            <div class="border-2 border-gray-400 p-2 rounded-md bg-gray-200">
-              {{ studentUpdate.appreciation }}
+            <div class="w-auto mr-2">Theme</div>
+            <div v-if="studentUpdate.subject" class="font-medium">
+              {{ studentUpdate.subject }}
             </div>
+            <div v-else class="font-medium">???</div>
           </div>
 
-          <p
-            class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+          <div class="mb-6 flex justify-between">
+            <div class="w-auto mr-2">Filière</div>
+            <div v-if="studentUpdate.field" class="font-medium">
+              {{ studentUpdate.field }}
+            </div>
+            <div v-else class="font-medium">???</div>
+          </div>
+
+          <!-- if the case of the student is not closed ------------------------------------------------------------------------------------------------------------ -->
+          <div v-if="studentUpdate.case_closed">
+            <div class="mb-6 flex justify-between">
+              <div class="w-auto mr-2">Maitre de Stage</div>
+              <div class="font-medium">{{ studentUpdate.master }}</div>
+            </div>
+
+            <div class="mb-6 flex justify-between">
+              <div class="w-auto mr-2">Decision finale</div>
+              <div class="font-medium">{{ studentUpdate.final_decision }}</div>
+            </div>
+
+            <div class="mb-6">
+              <div class="mb-2">Appreciation</div>
+              <div class="border-2 border-gray-400 p-2 rounded-md bg-gray-200">
+                {{ studentUpdate.appreciation }}
+              </div>
+            </div>
+
+            <p
+              class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+            >
+              Dossier clos
+            </p>
+          </div>
+
+          <!-- if the case of the student is closed ------------------------------------------------------------------------------------------------------------ -->
+          <form
+            @submit.prevent="updateStudent(studentUpdate)"
+            v-else
+            class="mt-6"
           >
-            Dossier clos
-          </p>
-        </div>
-
-        <!-- if the case of the student is closed ------------------------------------------------------------------------------------------------------------ -->
-        <form
-          @submit.prevent="updateStudent(studentUpdate)"
-          v-else
-          class="mt-6"
-        >
-          <div v-if="!studentUpdate.is_ready_for_presentation">
-            <div class="flex justify-between mb-6">
-              <div v-if="studentUpdate.is_profil_information_complete">
-                <span
-                  class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
-                >
-                  Profil complet
-                </span>
-              </div>
-              <div v-if="!studentUpdate.is_profil_information_complete">
-                <span
-                  class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
-                >
-                  Profil incomplet
-                </span>
-              </div>
-            </div>
-
-            <div class="flex justify-between mb-6">
-              <label
-                class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
-                v-if="!studentUpdate.is_school_fees_paid"
-              >
-                Scolarité non close
-              </label>
-              <label
-                class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
-                v-else
-              >
-                Scolarité close
-              </label>
-              <input
-                class="w-6 h-6"
-                type="checkbox"
-                v-model="studentUpdate.is_school_fees_paid"
-              />
-            </div>
-
-            <div class="flex justify-between mb-6">
-              <label
-                class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
-                v-if="!studentUpdate.is_credit_enough"
-                >Crédits insufisants</label
-              >
-              <label
-                class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
-                v-else
-                >Crédits sufisants</label
-              >
-              <input
-                class="w-6 h-6"
-                type="checkbox"
-                v-model="studentUpdate.is_credit_enough"
-              />
-            </div>
-          </div>
-
-          <div v-else>
-            <div v-if="!studentUpdate.is_presentation_finished">
-              <p
-                class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
-              >
-                Prêt pour presenter
-              </p>
-
-              <div class="flex justify-between">
-                <p class="mb-6">Date de presentation</p>
-                <input
-                  class="border-2 border-gray-400 mb-6"
-                  type="datetime-local"
-                  v-model="studentUpdate.presentation_date"
-                />
-              </div>
-
-              <div class="flex justify-between">
-                <p class="mb-6">Salle de presentation</p>
-                <input
-                  class="border-2 border-gray-400 mb-6"
-                  type="text"
-                  v-model="studentUpdate.presentation_room"
-                />
-              </div>
-
-              <div class="flex justify-between">
-                <span>Presentation terminée</span>
-                <div
-                  @click="is_presentation_finished = !is_presentation_finished"
-                  class="inline-block cursor-pointer mb-6 bg-yellow-500 hover:bg-yellow-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                >
-                  <span v-if="!is_presentation_finished"> Cliquer ici </span>
-                  <span v-else> Annuler </span>
+            <div v-if="!studentUpdate.is_ready_for_presentation">
+              <div class="flex justify-between mb-6">
+                <div v-if="studentUpdate.is_profil_information_complete">
+                  <span
+                    class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
+                  >
+                    Profil complet
+                  </span>
                 </div>
+                <div v-if="!studentUpdate.is_profil_information_complete">
+                  <span
+                    class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+                  >
+                    Profil incomplet
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex justify-between mb-6">
+                <label
+                  class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+                  v-if="!studentUpdate.is_school_fees_paid"
+                >
+                  Scolarité non close
+                </label>
+                <label
+                  class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
+                  v-else
+                >
+                  Scolarité close
+                </label>
+                <input
+                  class="w-6 h-6"
+                  type="checkbox"
+                  v-model="studentUpdate.is_school_fees_paid"
+                />
+              </div>
+
+              <div class="flex justify-between mb-6">
+                <label
+                  class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+                  v-if="!studentUpdate.is_credit_enough"
+                  >Crédits insufisants</label
+                >
+                <label
+                  class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
+                  v-else
+                  >Crédits sufisants</label
+                >
+                <input
+                  class="w-6 h-6"
+                  type="checkbox"
+                  v-model="studentUpdate.is_credit_enough"
+                />
               </div>
             </div>
 
             <div v-else>
-              <div
-                class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
-              >
-                <p>Presentation terminée</p>
-              </div>
-
-              <div class="mb-6 flex justify-between">
-                <label>Decision finale</label>
-                <select v-model="final_decision">
-                  <option value="Très bien">Très bien</option>
-                  <option value="Bien">Bien</option>
-                  <option value="Assez bien">Assez bien</option>
-                  <option value="Passable">Passable</option>
-                  <option value="Insuffisant">Insuffisant</option>
-                </select>
-              </div>
-
-              <div>
-                <p class="mb-2">Appreciation</p>
-                <textarea
-                  class="border-2 border-gray-400 mb-6"
-                  rows="4"
-                  cols="45"
-                  v-model="appreciation"
-                ></textarea>
-              </div>
-
-              <div
-                class="flex justify-between"
-                v-if="
-                  studentUpdate.final_decision && studentUpdate.appreciation
-                "
-              >
-                <span class="font-medium"
-                  >Cloturer le dossier (Irréversible !)</span
+              <div v-if="!studentUpdate.is_presentation_finished">
+                <p
+                  class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
                 >
+                  Prêt pour presenter
+                </p>
+
+                <div class="flex justify-between">
+                  <p class="mb-6">Date de presentation</p>
+                  <input
+                    class="border-2 border-gray-400 mb-6"
+                    type="datetime-local"
+                    v-model="studentUpdate.presentation_date"
+                  />
+                </div>
+
+                <div class="flex justify-between">
+                  <p class="mb-6">Salle de presentation</p>
+                  <input
+                    class="border-2 border-gray-400 mb-6"
+                    type="text"
+                    v-model="studentUpdate.presentation_room"
+                  />
+                </div>
+
+                <div class="flex justify-between">
+                  <span>Presentation terminée</span>
+                  <div
+                    @click="
+                      is_presentation_finished = !is_presentation_finished
+                    "
+                    class="inline-block cursor-pointer mb-6 bg-yellow-500 hover:bg-yellow-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    <span v-if="!is_presentation_finished"> Cliquer ici </span>
+                    <span v-else> Annuler </span>
+                  </div>
+                </div>
+              </div>
+
+              <div v-else>
                 <div
-                  class="inline-block cursor-pointer mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                  @click="case_closed = !case_closed"
+                  class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
                 >
-                  <span v-if="!case_closed"> Cliquer ici </span>
-                  <span v-else> Annuler </span>
+                  <p>Presentation terminée</p>
+                </div>
+
+                <div class="mb-6 flex justify-between">
+                  <label>Decision finale</label>
+                  <select v-model="final_decision">
+                    <option value="Très bien">Très bien</option>
+                    <option value="Bien">Bien</option>
+                    <option value="Assez bien">Assez bien</option>
+                    <option value="Passable">Passable</option>
+                    <option value="Insuffisant">Insuffisant</option>
+                  </select>
+                </div>
+
+                <div>
+                  <p class="mb-2">Appreciation</p>
+                  <textarea
+                    class="border-2 border-gray-400 mb-6"
+                    rows="4"
+                    cols="45"
+                    v-model="appreciation"
+                  ></textarea>
+                </div>
+
+                <div
+                  class="flex justify-between"
+                  v-if="
+                    studentUpdate.final_decision && studentUpdate.appreciation
+                  "
+                >
+                  <span class="font-medium"
+                    >Cloturer le dossier (Irréversible !)</span
+                  >
+                  <div
+                    class="inline-block cursor-pointer mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    @click="case_closed = !case_closed"
+                  >
+                    <span v-if="!case_closed"> Cliquer ici </span>
+                    <span v-else> Annuler </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            class="mb-6 bg-blue-500 hover:bg-blue-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            Valider
-          </button>
-        </form>
+            <button
+              type="submit"
+              class="mb-6 bg-blue-500 hover:bg-blue-700 ease-out duration-500 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              Valider
+            </button>
+          </form>
+        </div>
       </div>
+    </div>
+
+    <div v-else>
+      <Loading />
     </div>
   </div>
 </template>
 
 <script setup>
-const currentUser = await $fetch("/api/me");
+const currentUser = ref(null);
+currentUser.value = await $fetch("/api/me");
 
 // check if the role is authorized to access this page
-if (currentUser.role === "student") {
+if (currentUser.value.role === "student") {
   navigateTo("/");
 }
 

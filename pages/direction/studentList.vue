@@ -71,7 +71,7 @@
     </div>
 
     <!-- Display list of students -->
-    <div class="mx-3 p-1">
+    <div v-if="filteredList" class="mx-3 p-1">
       <div v-for="student in filteredList">
         <nuxt-link :to="`/direction/student/${student.id}`">
           <StudentView
@@ -81,15 +81,20 @@
         </nuxt-link>
       </div>
     </div>
+
+    <div v-else>
+      <Loading />
+    </div>
   </div>
 </template>
 
 <script setup>
 // get the current user
-const currentUser = await $fetch("/api/me");
+const currentUser = ref(null);
+currentUser.value = await $fetch("/api/me");
 
 // check if the user is authorized to access this page
-if (currentUser.role === "student") {
+if (currentUser.value.role === "student") {
   navigateTo("/");
 }
 
@@ -105,13 +110,13 @@ const studentList = ref(null);
 
 studentList.value = await $fetch("/api/student/", {
   method: "POST",
-  body: { listDirectionId: currentUser.id, year: year.value },
+  body: { listDirectionId: currentUser.value.id, year: year.value },
 });
 
 watch(year, async () => {
   studentList.value = await $fetch("/api/student/", {
     method: "POST",
-    body: { listDirectionId: currentUser.id, year: year.value },
+    body: { listDirectionId: currentUser.value.id, year: year.value },
   });
 });
 

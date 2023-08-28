@@ -93,9 +93,13 @@ definePageMeta({
   },
 });
 
-const currentUser = await $fetch("/api/me");
+const currentUser = ref(null);
+currentUser.value = await $fetch("/api/me");
 
-if (currentUser.role === "direction" || currentUser.role === "student") {
+if (
+  currentUser.value.role === "direction" ||
+  currentUser.value.role === "student"
+) {
   navigateTo("/");
 }
 
