@@ -6,15 +6,13 @@
           {{ student.lastname + " " + student.firstname }}
         </span>
         <span class="lg:text-xl">
-          <span
-            v-if="student.is_ready_for_presentation"
-            class="font-bold text-green-500"
-          >
-            Prêt
+          <span v-if="student.is_ready_for_presentation">
+            <span v-if="student.final_decision" class="font-bold font-body">
+              {{ student.final_decision }}
+            </span>
+            <span v-else class="font-bold text-green-500"> Prêt </span>
           </span>
-          <span v-else-if="student.final_decision" class="font-bold font-body">
-            {{ student.final_decision }}
-          </span>
+
           <span v-else class="font-bold text-gray-500"> Non prêt </span>
         </span>
       </p>
