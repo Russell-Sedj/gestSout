@@ -83,10 +83,15 @@ const emailStudent = ref("");
 const passwordStudent = ref("");
 
 // get the route where the user where going
-const route = useRoute();
-const url = route.fullPath;
-const start = url.indexOf("callbackUrl=");
-const end = url.indexOf("&error");
-const x = url.substring(start, end);
-const [key, callbackUrl] = x.split("=");
+onMounted(() => {
+  const route = useRoute();
+  const url = route.fullPath;
+  const start = url.indexOf("callbackUrl=");
+  const end = url.indexOf("&error");
+  const x = url.substring(start, end);
+  const [key, callbackUrl] = x.split("=");
+  if (callbackUrl == "/logout") {
+    callbackUrl = "/";
+  }
+});
 </script>
