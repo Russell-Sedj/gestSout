@@ -10,7 +10,7 @@
 
     <div
       v-if="isOpen"
-      class="absolute right-0 z-10 mt-2 w-48 text-lg bg-white rounded-md shadow-xl text-gray-700 font-bold"
+      class="absolute right-0 z-30 mt-2 w-48 text-lg bg-white rounded-md shadow-xl text-gray-700 font-bold"
       @click.away="isOpen = false"
     >
       <!-- case the user is direction -->
