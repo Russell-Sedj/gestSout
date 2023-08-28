@@ -77,7 +77,7 @@
         to="/student/"
         class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
       >
-        Dashboard
+        Statut
       </nuxt-link>
       <nuxt-link
         v-if="currentUser.role === 'student' || currentUser.role === 'admin'"

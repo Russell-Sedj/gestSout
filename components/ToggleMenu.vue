@@ -65,7 +65,7 @@
           v-if="currentUser.role === 'student' || currentUser.role === 'admin'"
           to="/student"
         >
-          Dashboard
+          Statut
         </nuxt-link>
 
         <nuxt-link
