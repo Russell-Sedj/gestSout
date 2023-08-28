@@ -121,19 +121,26 @@ const filteredList = computed(() => {
       return studentList.value.request;
     } else if (filterValue.value === "eligible") {
       return studentList.value.request.filter(
-        (student) => student.is_ready_for_presentation === true
+        (student) =>
+          student.is_ready_for_presentation &&
+          !student.is_presentation_finished &&
+          !student.final_decision &&
+          !student.case_closed
       );
     } else if (filterValue.value === "termine") {
       return studentList.value.request.filter(
-        (student) => student.final_decision
-        // && student.is_ready_for_presentation &&
-        // student.is_presentation_finished
+        (student) =>
+          (student.final_decision || student.case_closed) &&
+          student.is_presentation_finished &&
+          student.is_ready_for_presentation
       );
     } else if (filterValue.value === "enCours") {
       return studentList.value.request.filter(
-        (student) => !student.is_ready_for_presentation
-        // && !student.final_decision &&
-        // !student.is_presentation_finished
+        (student) =>
+          student.is_ready_for_presentation &&
+          !student.is_presentation_finished &&
+          !student.final_decision &&
+          !student.case_closed
       );
     }
   }
