@@ -137,7 +137,7 @@ const filteredList = computed(() => {
     } else if (filterValue.value === "enCours") {
       return studentList.value.request.filter(
         (student) =>
-          student.is_ready_for_presentation &&
+          !student.is_ready_for_presentation &&
           !student.is_presentation_finished &&
           !student.final_decision &&
           !student.case_closed
