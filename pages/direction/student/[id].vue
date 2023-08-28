@@ -17,7 +17,7 @@
 
         <div class="mb-6 flex justify-between">
           <div class="w-auto mr-2">Theme</div>
-          <div v-if="studentUpdate.subject" class="font-medium text-right">
+          <div v-if="studentUpdate.subject" class="font-medium">
             {{ studentUpdate.subject }}
           </div>
           <div v-else class="font-medium">???</div>
@@ -25,19 +25,22 @@
 
         <div class="mb-6 flex justify-between">
           <div class="w-auto mr-2">Filière</div>
-          <div class="font-medium text-right">{{ studentUpdate.field }}</div>
+          <div v-if="studentUpdate.field" class="font-medium">
+            {{ studentUpdate.field }}
+          </div>
+          <div v-else class="font-medium">???</div>
         </div>
 
         <!-- if the case of the student is not closed ------------------------------------------------------------------------------------------------------------ -->
         <div v-if="studentUpdate.case_closed">
           <div class="mb-6 flex justify-between">
-            <span class="w-auto mr-2">Maitre de Stage</span>
-            <span class="font-medium">{{ studentUpdate.master }}</span>
+            <div class="w-auto mr-2">Maitre de Stage</div>
+            <div class="font-medium">{{ studentUpdate.master }}</div>
           </div>
 
           <div class="mb-6 flex justify-between">
-            <span class="w-auto mr-2">Decision finale</span>
-            <span class="font-medium">{{ studentUpdate.final_decision }}</span>
+            <div class="w-auto mr-2">Decision finale</div>
+            <div class="font-medium">{{ studentUpdate.final_decision }}</div>
           </div>
 
           <div class="mb-6">
