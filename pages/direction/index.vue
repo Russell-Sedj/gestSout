@@ -1,5 +1,6 @@
 <template>
   <div class="text-xl md:text-2xl">
+    {{ eligibleList }}
     <h1 class="m-6 text-2xl md:text-3xl flex justify-center">
       Tableau de bord:
       <strong v-if="currentUser" class="font-bold ml-1">{{
@@ -105,17 +106,30 @@ studentList.value = (
 
 const eligibleList = ref(
   studentList.value.filter(
-    (student) => student.is_ready_for_presentation === true
+    (student) =>
+      student.is_ready_for_presentation &&
+      !student.is_presentation_finished &&
+      !student.final_decision &&
+      !student.case_closed
   )
 );
 
 const inProgressList = ref(
   studentList.value.filter(
-    (student) => student.is_ready_for_presentation === false
+    (student) =>
+      !student.is_ready_for_presentation &&
+      !student.is_presentation_finished &&
+      !student.final_decision &&
+      !student.case_closed
   )
 );
 
 const finishedList = ref(
-  studentList.value.filter((student) => student.case_closed)
+  studentList.value.filter(
+    (student) =>
+      (student.final_decision || student.case_closed) &&
+      student.is_presentation_finished &&
+      student.is_ready_for_presentation
+  )
 );
 </script>
