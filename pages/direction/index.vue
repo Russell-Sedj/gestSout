@@ -89,7 +89,7 @@ const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
 if (currentUser.value.role === "student") {
-  navigateTo("/");
+  await navigateTo("/");
 }
 
 const runtimeConfig = useRuntimeConfig();

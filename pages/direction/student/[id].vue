@@ -232,7 +232,7 @@ currentUser.value = await $fetch("/api/me");
 
 // check if the role is authorized to access this page
 if (currentUser.value.role === "student") {
-  navigateTo("/");
+  await navigateTo("/");
 }
 
 // get the student id from the url

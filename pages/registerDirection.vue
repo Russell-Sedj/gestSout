@@ -117,7 +117,7 @@ if (
   currentUser.value.role === "direction" ||
   currentUser.value.role === "student"
 ) {
-  navigateTo("/");
+  await navigateTo("/");
 }
 
 useHead({
@@ -153,7 +153,7 @@ async function addDirection(direction) {
     if (req) {
       if (!req.message) {
         alert("Service Examen ajouté avec succès");
-        navigateTo("/");
+        await navigateTo("/");
       } else if (req.message) {
         alert("Erreur lors de l'ajout du Service Examen");
       }

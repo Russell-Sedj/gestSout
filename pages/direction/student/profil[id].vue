@@ -176,7 +176,7 @@ const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
 if (currentUser.value.role === "student") {
-  navigateTo("/");
+  await navigateTo("/");
 }
 
 useHead({
@@ -201,7 +201,7 @@ const studentUrl = "/direction/student/" + studentId;
 
 // if the profil is already closed
 if (student.value.case_closed === true) {
-  navigateTo(studentUrl);
+  await navigateTo(studentUrl);
 }
 
 // edit student
@@ -226,7 +226,7 @@ async function editStudent(student) {
         alert("Erreur lors de la modification du profil");
       } else if (!req.message) {
         alert("Profil modifié avec succès");
-        navigateTo(studentUrl);
+        await navigateTo(studentUrl);
       }
     } else {
       alert("Erreur lors de la modification du profil");

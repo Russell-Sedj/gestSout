@@ -175,9 +175,9 @@ const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
 if (currentUser.value.role === "direction") {
-  navigateTo("/");
+  await avigateTo("/");
 } else if (currentUser.value.case_closed === true) {
-  navigateTo("/student/");
+  await navigateTo("/student/");
 }
 
 useHead({
@@ -224,7 +224,7 @@ async function editStudent(student) {
         alert("Erreur lors de la modification du profil");
       } else if (!req.message) {
         alert("Profil modifié avec succès");
-        navigateTo("/student/");
+        await navigateTo("/student/");
       }
     } else {
       alert("Erreur lors de la modification du profil");

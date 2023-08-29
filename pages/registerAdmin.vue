@@ -100,7 +100,7 @@ if (
   currentUser.value.role === "direction" ||
   currentUser.value.role === "student"
 ) {
-  navigateTo("/");
+  await navigateTo("/");
 }
 
 useHead({

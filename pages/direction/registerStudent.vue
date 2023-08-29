@@ -135,7 +135,7 @@ currentUser.value = await $fetch("/api/me");
 
 // redirect if not admin or direction
 if (currentUser.value.role === "student") {
-  navigateTo("/");
+  await navigateTo("/");
 }
 
 useHead({

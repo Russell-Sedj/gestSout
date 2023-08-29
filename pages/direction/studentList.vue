@@ -95,7 +95,7 @@ currentUser.value = await $fetch("/api/me");
 
 // check if the user is authorized to access this page
 if (currentUser.value.role === "student") {
-  navigateTo("/");
+  await navigateTo("/");
 }
 
 // get the filter value from the url
