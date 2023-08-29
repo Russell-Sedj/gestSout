@@ -174,12 +174,6 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-if (currentUser.value.role === "direction") {
-  await avigateTo("/");
-} else if (currentUser.value.case_closed === true) {
-  await navigateTo("/student/");
-}
-
 useHead({
   title: "Profil Etudiant",
   meta: [

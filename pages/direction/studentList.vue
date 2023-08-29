@@ -93,11 +93,6 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-// check if the user is authorized to access this page
-if (currentUser.value.role === "student") {
-  await navigateTo("/");
-}
-
 // get the filter value from the url
 const route = useRoute();
 // const filterValue = ref("all");

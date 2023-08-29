@@ -133,11 +133,6 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-// redirect if not admin or direction
-if (currentUser.value.role === "student") {
-  await navigateTo("/");
-}
-
 useHead({
   title: "Inscription Etudiant",
   meta: [

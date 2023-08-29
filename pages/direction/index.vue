@@ -1,6 +1,5 @@
 <template>
   <div class="text-xl md:text-2xl">
-    {{ eligibleList }}
     <h1 class="m-6 text-2xl md:text-3xl flex justify-center">
       Tableau de bord:
       <strong v-if="currentUser" class="font-bold ml-1">{{
@@ -89,9 +88,9 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-if (currentUser.value.role === "student") {
-  await navigateTo("/");
-}
+// if (currentUser.value.role === "student") {
+//   await navigateTo("/");
+// }
 
 const runtimeConfig = useRuntimeConfig();
 const currentYear = runtimeConfig.public.currentYear;

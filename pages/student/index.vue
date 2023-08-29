@@ -130,7 +130,7 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-if (currentUser.role === "direction") {
-  await navigateTo("/");
-}
+// if (currentUser.role === "direction") {
+//   await navigateTo("/");
+// }
 </script>

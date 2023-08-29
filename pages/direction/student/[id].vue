@@ -231,9 +231,9 @@ const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
 // check if the role is authorized to access this page
-if (currentUser.value.role === "student") {
-  await navigateTo("/");
-}
+// if (currentUser.value.role === "student") {
+//   await navigateTo("/");
+// }
 
 // get the student id from the url
 const route = useRoute();

@@ -175,10 +175,6 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-if (currentUser.value.role === "student") {
-  await navigateTo("/");
-}
-
 useHead({
   title: "Profil Etudiant",
   meta: [
@@ -198,11 +194,6 @@ const obj = await $fetch("/api/student", {
 });
 const student = ref(obj.request);
 const studentUrl = "/direction/student/" + studentId;
-
-// if the profil is already closed
-if (student.value.case_closed === true) {
-  await navigateTo(studentUrl);
-}
 
 // edit student
 async function editStudent(student) {

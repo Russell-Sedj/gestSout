@@ -13,7 +13,7 @@ onMounted(() => {
   const { signOut } = useAuth();
   signOut();
   setTimeout(() => {
-    window.location.href = "/login";
+    window.location.href = "/";
   }, 1000);
 });
 </script>

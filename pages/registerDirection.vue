@@ -113,13 +113,6 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-if (
-  currentUser.value.role === "direction" ||
-  currentUser.value.role === "student"
-) {
-  await navigateTo("/");
-}
-
 useHead({
   title: "Inscription Service Examen",
   meta: [
