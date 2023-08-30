@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="hover:bg-gray-200 cursor-pointer">
+    <div class="hover:bg-gray-200 cursor-pointer p-1 rounded-md">
       <p class="flex justify-between">
         <span class="text-sm md:text-base lg:text-xl mr-2">
           {{ student.lastname + " " + student.firstname }}

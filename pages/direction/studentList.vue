@@ -71,7 +71,7 @@
     </div>
 
     <!-- Display list of students -->
-    <div v-if="filteredList" class="mx-3 p-1">
+    <div v-if="filteredList" class="mx-3">
       <div v-for="student in filteredList">
         <nuxt-link :to="`/direction/student/${student.id}`">
           <StudentView
