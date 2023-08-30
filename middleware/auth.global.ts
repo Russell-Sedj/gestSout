@@ -41,8 +41,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       } else if (currentUser.value.role === "student") {
         // if going to student profile page
         if (to.path === "/student/profilStudent") {
-          // if case is closed
-          if (currentUser.value.case_closed) {
+          // if profil information is complete
+          if (currentUser.value.is_profil_information_complete) {
             return navigateTo("/student/");
           }
         }
@@ -57,7 +57,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       }
     }
 
-    // if going to a admin page
+    // if going to an admin page
     else if (to.path.startsWith("admin")) {
       // if user is not admin
       if (currentUser.value.role !== "admin") {
