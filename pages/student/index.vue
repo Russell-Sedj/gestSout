@@ -48,7 +48,10 @@
         </div>
 
         <div v-if="!currentUser.case_closed">
-          <div v-if="!currentUser.is_ready_for_presentation">
+          <div
+            v-if="!currentUser.is_ready_for_presentation"
+            class="border-b-2 border-gray-400"
+          >
             <div class="flex justify-between mb-6">
               <div v-if="currentUser.is_profil_information_complete">
                 <span
@@ -94,30 +97,53 @@
               >
             </div>
           </div>
+
+          <div v-else>
+            <div v-if="!currentUser.is_presentation_finished">
+              <p class="mb-3 text-center font-bold">Presentation</p>
+              <div class="mb-6 flex justify-between">
+                <div class="w-auto mr-2">Date et Heure</div>
+                <div v-if="formatedDate" class="font-medium">
+                  {{ formatedDate }}
+                </div>
+                <div v-else class="font-medium">???</div>
+              </div>
+
+              <div class="mb-6 flex justify-between">
+                <div class="w-auto mr-2">Salle</div>
+                <div v-if="currentUser.presentation_room" class="font-medium">
+                  {{ currentUser.presentation_room }}
+                </div>
+                <div v-else class="font-medium">???</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div v-else>
-          <div class="mb-6 flex justify-between">
-            <div class="w-auto mr-2">Decision finale</div>
-            <div v-if="currentUser.final_decision" class="font-medium">
-              {{ currentUser.final_decision }}
+        <div>
+          <div v-if="currentUser.is_presentation_finished">
+            <div class="mb-6 flex justify-between">
+              <div class="w-auto mr-2">Decision finale</div>
+              <div v-if="currentUser.final_decision" class="font-medium">
+                {{ currentUser.final_decision }}
+              </div>
+              <div v-else class="font-medium">???</div>
             </div>
-            <div v-else class="font-medium">???</div>
-          </div>
 
-          <div class="mb-6">
-            <div class="mb-2">Appreciation</div>
-            <div
-              v-if="currentUser.appreciation"
-              class="border-2 border-gray-400 p-2 rounded-md bg-gray-200"
-            >
-              {{ currentUser.appreciation }}
-            </div>
-            <div
-              v-else
-              class="text-center border-2 border-gray-400 p-2 rounded-md bg-gray-200"
-            >
-              ???
+            <div class="mb-6">
+              <div class="mb-2">Appreciation</div>
+              <div
+                v-if="currentUser.appreciation"
+                class="border-2 border-gray-400 p-2 rounded-md bg-gray-200"
+              >
+                {{ currentUser.appreciation }}
+              </div>
+              <div
+                v-else
+                class="text-center border-2 border-gray-400 p-2 rounded-md bg-gray-200"
+              >
+                ???
+              </div>
             </div>
           </div>
         </div>
@@ -130,7 +156,16 @@
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-// if (currentUser.role === "direction") {
-//   await navigateTo("/");
-// }
+const formatedDate = computed(() => {
+  const date = new Date(currentUser.value.presentation_date);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+  };
+  return date.toLocaleDateString("fr-FR", options);
+});
 </script>
