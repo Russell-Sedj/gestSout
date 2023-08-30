@@ -7,7 +7,7 @@
         </span>
         <span class="lg:text-xl">
           <span v-if="student.is_ready_for_presentation">
-            <span v-if="student.final_decision" class="font-bold font-body">
+            <span v-if="student.final_decision" class="font-bold">
               {{ student.final_decision }}
             </span>
             <span v-else class="font-bold text-green-500"> Prêt </span>
