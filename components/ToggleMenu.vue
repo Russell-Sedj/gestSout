@@ -72,6 +72,9 @@
           class="block px-4 py-2 hover:bg-gray-100"
           v-if="
             (currentUser.role === 'student' || currentUser.role === 'admin') &&
+            !currentUser.is_profil_information_complete &&
+            !currentUser.is_ready_for_presentation &&
+            !currentUser.is_presentation_finished &&
             !currentUser.case_closed
           "
           to="/student/profilStudent"
