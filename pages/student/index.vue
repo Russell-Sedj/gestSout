@@ -120,32 +120,38 @@
           </div>
         </div>
 
-        <div>
-          <div v-if="currentUser.is_presentation_finished">
-            <div class="mb-6 flex justify-between">
-              <div class="w-auto mr-2">Decision finale</div>
-              <div v-if="currentUser.final_decision" class="font-medium">
-                {{ currentUser.final_decision }}
-              </div>
-              <div v-else class="font-medium">???</div>
+        <div v-if="currentUser.is_presentation_finished">
+          <div class="mb-6 flex justify-between">
+            <div class="w-auto mr-2">Decision finale</div>
+            <div v-if="currentUser.final_decision" class="font-medium">
+              {{ currentUser.final_decision }}
             </div>
+            <div v-else class="font-medium">???</div>
+          </div>
 
-            <div class="mb-6">
-              <div class="mb-2">Appreciation</div>
-              <div
-                v-if="currentUser.appreciation"
-                class="border-2 border-gray-400 p-2 rounded-md bg-gray-200"
-              >
-                {{ currentUser.appreciation }}
-              </div>
-              <div
-                v-else
-                class="text-center border-2 border-gray-400 p-2 rounded-md bg-gray-200"
-              >
-                ???
-              </div>
+          <div class="mb-6">
+            <div class="mb-2">Appreciation</div>
+            <div
+              v-if="currentUser.appreciation"
+              class="border-2 border-gray-400 p-2 rounded-md bg-gray-200"
+            >
+              {{ currentUser.appreciation }}
+            </div>
+            <div
+              v-else
+              class="text-center border-2 border-gray-400 p-2 rounded-md bg-gray-200"
+            >
+              ???
             </div>
           </div>
+        </div>
+
+        <div v-if="currentUser.case_closed">
+          <p
+            class="mb-6 bg-red-200 text-red-900 rounded-md inline-block px-3 py-2"
+          >
+            Dossier clos
+          </p>
         </div>
       </div>
     </div>

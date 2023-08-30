@@ -10,7 +10,7 @@
         <div v-if="currentUser.is_ready_for_presentation">
           <div
             v-if="
-              currentUser.is_presentation_finished || !currentUser.case_closed
+              !currentUser.is_presentation_finished || !currentUser.case_closed
             "
           >
             <PresentationAlert
