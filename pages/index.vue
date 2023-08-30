@@ -1,9 +1,13 @@
 <template>
   <div class="flex items-center justify-center mx-3">
     <div>
-      <div class="flex items-center justify-center text-xl md:text-2xl my-6">
+      <div
+        v-if="myUniversity.limit_date"
+        class="flex items-center justify-center text-xl md:text-2xl my-6"
+      >
         <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
-        limite de depot : 20 Mars 2023
+        limite de depot :
+        {{ myUniversity.limit_date }}
       </div>
 
       <div v-if="currentUser.role === 'student'" class="text-center mb-6">
@@ -94,4 +98,16 @@ definePageMeta({
 
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
+
+const myUniversity = ref(null);
+
+if (currentUser.value.role === "student") {
+  const { data } = await useFetch("/api/direction", {
+    method: "POST",
+    body: {
+      uniqueId: currentUser.value.directionId,
+    },
+  });
+  myUniversity.value = data;
+}
 </script>
