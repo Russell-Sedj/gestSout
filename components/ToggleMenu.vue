@@ -86,6 +86,10 @@
         >Acceuil</nuxt-link
       >
 
+      <nuxt-link class="block px-4 py-2 hover:bg-gray-100" to="/programmation"
+        >Programmation</nuxt-link
+      >
+
       <nuxt-link
         class="block px-4 py-2 hover:bg-gray-100"
         v-if="loggedIn"
