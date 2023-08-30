@@ -1,13 +1,15 @@
 <template>
   <div class="flex items-center justify-center mx-3">
     <div>
-      <div
-        v-if="myUniversity.limit_date"
-        class="flex items-center justify-center text-xl md:text-2xl my-6"
-      >
-        <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
-        limite de depot :
-        {{ myUniversity.limit_date }}
+      <div v-if="myUniversity">
+        <div
+          v-if="myUniversity.limit_date"
+          class="flex items-center justify-center text-xl md:text-2xl my-6"
+        >
+          <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
+          limite de depot :
+          {{ myUniversity.limit_date }}
+        </div>
       </div>
 
       <div v-if="currentUser.role === 'student'" class="text-center mb-6">
@@ -99,15 +101,18 @@ definePageMeta({
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
+// couldn't set the value of myUniversity properly so i set a delay before the fetch
 const myUniversity = ref(null);
 
-if (currentUser.value.role === "student") {
-  const { data } = await useFetch("/api/direction", {
-    method: "POST",
-    body: {
-      uniqueId: currentUser.value.directionId,
-    },
-  });
-  myUniversity.value = data.value;
-}
+onMounted(async () => {
+  setTimeout(async () => {
+    if (currentUser.value.role === "student") {
+      const { data } = await useFetch("/api/direction/", {
+        method: "POST",
+        body: { uniqueId: currentUser.value.directionId },
+      });
+      myUniversity.value = data.value;
+    }
+  }, 3000);
+});
 </script>
