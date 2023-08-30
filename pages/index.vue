@@ -11,6 +11,13 @@
           {{ myUniversity.limit_date }}
         </div>
       </div>
+      <div v-else-if="currentUser.limit_date">
+        <div class="flex items-center justify-center text-xl md:text-2xl my-6">
+          <strong class="font-bold text-5xl text-red-600 mr-2">! </strong> Date
+          limite de depot :
+          {{ currentUser.limit_date }}
+        </div>
+      </div>
 
       <div v-if="currentUser.role === 'student'" class="text-center mb-6">
         <div v-if="currentUser.is_ready_for_presentation">
