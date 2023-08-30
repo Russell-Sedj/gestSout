@@ -4,9 +4,10 @@
       Programmation année {{ currentYear }}
     </div>
 
-    <div class="mx-3 p-1">
+    <div class="mx-3">
       <div v-for="student in studentList">
         <StudentProgrammation
+          v-if="student.presentation_date && !student.is_presentation_finished"
           :student="student"
           class="border-b-2 border-gray-400 mt-3"
         />
@@ -33,13 +34,28 @@ onMounted(async () => {
     }).then(async (res) => {
       myUniversity.value = res;
 
-      // get the list of students from the university
+      // get the list of students from its university
       const { data } = await useFetch("/api/student/", {
         method: "POST",
         body: { listDirectionId: myUniversity.value.id, year: currentYear },
       });
       studentList.value = data.value.request;
+      studentList.value.sort(
+        (a, b) => new Date(a.presentation_date) - new Date(b.presentation_date)
+      );
     });
+  }
+
+  // get the list of students from the currentUser university
+  else if (currentUser.value.role === "direction") {
+    const { data } = await useFetch("/api/student/", {
+      method: "POST",
+      body: { listDirectionId: currentUser.value.id, year: currentYear },
+    });
+    studentList.value = data.value.request;
+    studentList.value.sort(
+      (a, b) => new Date(a.presentation_date) - new Date(b.presentation_date)
+    );
   }
 });
 </script>
