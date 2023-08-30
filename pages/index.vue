@@ -108,6 +108,6 @@ if (currentUser.value.role === "student") {
       uniqueId: currentUser.value.directionId,
     },
   });
-  myUniversity.value = data;
+  myUniversity.value = data.value;
 }
 </script>
