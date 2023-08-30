@@ -12,6 +12,9 @@
         <li class="mx-2">
           <nuxt-link to="/">Acceuil</nuxt-link>
         </li>
+        <li class="mx-2">
+          <nuxt-link to="/programmation">Programmation</nuxt-link>
+        </li>
         <li class="mx-2" v-if="!loggedIn">
           <nuxt-link to="/login">Connexion</nuxt-link>
         </li>
