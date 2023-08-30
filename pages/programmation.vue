@@ -1,7 +1,16 @@
 <template>
   <div>
-    <div v-for="student in studentList">
-      <div>{{ student }}</div>
+    <div class="text-center my-6 font-bold md:text-2xl">
+      Programmation année {{ currentYear }}
+    </div>
+
+    <div class="mx-3 p-1">
+      <div v-for="student in studentList">
+        <StudentProgrammation
+          :student="student"
+          class="border-b-2 border-gray-400 mt-3"
+        />
+      </div>
     </div>
   </div>
 </template>
