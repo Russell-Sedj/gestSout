@@ -6,6 +6,21 @@
         limite de depot : 20 Mars 2023
       </div>
 
+      <div v-if="currentUser.role === 'student'" class="text-center mb-6">
+        <div v-if="currentUser.is_ready_for_presentation">
+          <div
+            v-if="
+              currentUser.is_presentation_finished || !currentUser.case_closed
+            "
+          >
+            <PresentationAlert
+              :currentUser="currentUser"
+              v-if="currentUser.presentation_date"
+            />
+          </div>
+        </div>
+      </div>
+
       <div v-if="currentUser">
         {{ currentUser }}
       </div>
