@@ -108,18 +108,16 @@ definePageMeta({
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
 
-// couldn't set the value of myUniversity properly so i set a delay before the fetch
+// get the student's university
 const myUniversity = ref(null);
-
 onMounted(async () => {
-  setTimeout(async () => {
-    if (currentUser.value.role === "student") {
-      const { data } = await useFetch("/api/direction/", {
-        method: "POST",
-        body: { uniqueId: currentUser.value.directionId },
-      });
-      myUniversity.value = data.value;
-    }
-  }, 3000);
+  if (currentUser.value.role === "student") {
+    await $fetch("/api/direction/", {
+      method: "POST",
+      body: { uniqueId: currentUser.value.directionId },
+    }).then((data) => {
+      myUniversity.value = data;
+    });
+  }
 });
 </script>
