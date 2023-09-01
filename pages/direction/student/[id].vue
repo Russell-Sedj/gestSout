@@ -122,11 +122,19 @@
 
             <div v-else>
               <div v-if="!studentUpdate.is_presentation_finished">
-                <p
-                  class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
-                >
-                  Prêt pour presenter
-                </p>
+                <div class="flex justify-between">
+                  <div
+                    class="mb-6 bg-green-200 text-green-900 rounded-md inline-block px-3 py-2"
+                  >
+                    Prêt pour presenter
+                  </div>
+                  <div
+                    @click="disableReadyForPresentation(studentUpdate)"
+                    class="inline-block cursor-pointer mb-6 bg-red-500 hover:bg-red-700 ease-out duration-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    Annuler
+                  </div>
+                </div>
 
                 <div class="flex justify-between">
                   <p class="mb-6">Date de presentation</p>
@@ -335,6 +343,32 @@ const updateStudent = async (studentUpdate) => {
     }
   } else {
     alert("Erreur lors de la mise à jour");
+  }
+};
+
+const disableReadyForPresentation = async (studentUpdate) => {
+  studentUpdate.is_ready_for_presentation = false;
+  const updateData = { ...studentUpdate, disableReady: true };
+  const req = await $fetch("/api/student", {
+    method: "PUT",
+    body: {
+      id: studentUpdate.id,
+      is_ready_for_presentation: true,
+      disableReady: true,
+    },
+  });
+
+  if (req) {
+    if (req.message) {
+      alert("Erreur lors de la mise à jour");
+      location.reload();
+    } else if (!req.message) {
+      alert("Etudiant mis à jour avec succes");
+      location.reload();
+    }
+  } else {
+    alert("Erreur lors de la mise à jour");
+    location.reload();
   }
 };
 </script>
