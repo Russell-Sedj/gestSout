@@ -2,18 +2,21 @@
   <div>
     <p>Deconnexion en cours...</p>
     <p>
-      Vous allez être redirigé vers la page de connexion. Si ce n'est pas le
-      cas, cliquez <nuxt-link class="text-blue-500" to="/login">ici</nuxt-link>.
+      Vous allez être deconnecté. Si ce n'est pas le cas, cliquez
+      <span class="text-blue-500" to="logout">ici</span>.
     </p>
   </div>
 </template>
 
 <script setup>
+const { signOut } = useAuth();
+
+const logout = async () => {
+  await signOut();
+  window.location.href = "/";
+};
+
 onMounted(() => {
-  const { signOut } = useAuth();
-  signOut();
-  setTimeout(() => {
-    window.location.href = "/";
-  }, 1000);
+  logout();
 });
 </script>
