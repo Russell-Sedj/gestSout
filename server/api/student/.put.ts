@@ -42,7 +42,8 @@ export default defineEventHandler(async (event) => {
   if (
     input_data.is_profil_information_complete &&
     input_data.is_school_fees_paid &&
-    input_data.is_credit_enough
+    input_data.is_credit_enough &&
+    !input_data.disableReady
   ) {
     input_data.is_ready_for_presentation = true;
   }
@@ -76,19 +77,23 @@ export default defineEventHandler(async (event) => {
       });
   }
 
+  // case where disable ready for presentation
+  else if (input_data.hasOwnProperty("disableReady")) {
+    await prisma.student.update({
+      where: { id: input_data.id },
+      data: { is_ready_for_presentation: false },
+    });
+  }
+
   // case where shit
   else {
-    console.log(
-      "Bad Request: Missing nom or prenom or email or telephone or field"
-    );
+    console.log("Bad Request: Missing Parameters");
     createError({
       statusCode: 400,
-      statusMessage:
-        "Bad Request: Missing nom or prenom or email or telephone or field",
+      statusMessage: "Bad Request: Missing Parameters",
     });
     return {
-      message:
-        "Bad Request: Missing nom or prenom or email or password or telephone or field",
+      message: "Bad Request: Missing Parameters",
     };
   }
   return {
