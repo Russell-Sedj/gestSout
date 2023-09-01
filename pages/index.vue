@@ -38,7 +38,7 @@
         {{ currentUser }}
       </div>
 
-      <div class="mb-5">
+      <div class="mb-6">
         <p class="font-bold text-xl md:text-2xl mb-3">FAQ</p>
         <ol>
           <li>
