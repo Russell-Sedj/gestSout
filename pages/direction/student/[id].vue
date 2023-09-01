@@ -348,7 +348,6 @@ const updateStudent = async (studentUpdate) => {
 
 const disableReadyForPresentation = async (studentUpdate) => {
   studentUpdate.is_ready_for_presentation = false;
-  const updateData = { ...studentUpdate, disableReady: true };
   const req = await $fetch("/api/student", {
     method: "PUT",
     body: {
