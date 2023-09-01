@@ -155,7 +155,7 @@
                 </div>
 
                 <div class="flex justify-between">
-                  <span>Presentation terminée</span>
+                  <span>Presentation terminée (Irréversible !)</span>
                   <div
                     @click="
                       is_presentation_finished = !is_presentation_finished
@@ -337,12 +337,14 @@ const updateStudent = async (studentUpdate) => {
   if (req) {
     if (req.message) {
       alert("Erreur lors de la mise à jour");
+      location.reload();
     } else if (!req.message) {
       alert("Etudiant mis à jour avec succes");
       location.reload();
     }
   } else {
     alert("Erreur lors de la mise à jour");
+    location.reload();
   }
 };
 
@@ -352,6 +354,8 @@ const disableReadyForPresentation = async (studentUpdate) => {
     method: "PUT",
     body: {
       id: studentUpdate.id,
+      firstname: studentUpdate.firstname,
+      lastname: studentUpdate.lastname,
       is_ready_for_presentation: true,
       disableReady: true,
     },
