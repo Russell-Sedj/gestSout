@@ -103,8 +103,11 @@ studentList.value = (
   })
 ).request;
 
+const eligibleList = ref(null);
+const inProgressList = ref(null);
+const finishedList = ref(null);
+
 onMounted(() => {
-  const eligibleList = ref(null);
   eligibleList.value = studentList.value.filter(
     (student) =>
       student.is_ready_for_presentation &&
@@ -113,7 +116,6 @@ onMounted(() => {
       !student.case_closed
   );
 
-  const inProgressList = ref(null);
   inProgressList.value = studentList.value.filter(
     (student) =>
       !student.is_ready_for_presentation &&
@@ -122,7 +124,6 @@ onMounted(() => {
       !student.case_closed
   );
 
-  const finishedList = ref(null);
   finishedList.value = studentList.value.filter(
     (student) =>
       (student.final_decision || student.case_closed) &&
