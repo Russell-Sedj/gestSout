@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+import { getServerSession } from "#auth";
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   let request = null;
@@ -12,6 +14,16 @@ export default defineEventHandler(async (event) => {
     }
   }
   // console.log("input_data: ----------------------\n", input_data);
+
+  // show log of the user who make the request
+  if (
+    !input_data.hasOwnProperty("listDirectionId") &&
+    !input_data.hasOwnProperty("uniqueId")
+  ) {
+    const session = await getServerSession(event);
+    console.log("--------------------POST request-----------------------");
+    console.log("By: ", session?.user?.email, "---------------------->");
+  }
 
   // case where we want to create a student
   if (

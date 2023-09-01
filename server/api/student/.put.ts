@@ -1,9 +1,16 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+import { getServerSession } from "#auth";
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   let request = null;
+
+  // show log of the user who make the request
+  const session = await getServerSession(event);
+  console.log("--------------------PUT request-----------------------");
+  console.log("By: ", session?.user?.email, "---------------------->");
 
   const input_data: any = {};
   for (const key in body) {
