@@ -3,7 +3,7 @@
     <div v-if="studentUpdate" class="relative">
       <nuxt-link
         v-if="!studentUpdate.is_presentation_finished"
-        :to="`/direction/student/profil${student.id}`"
+        :to="`/direction/student/profil${studentUpdate.id}`"
         class="bg-green-300 hover:bg-green-400 ease-out duration-300 rounded w-auto px-2 py-1 mx-2 relative top-3 md:top-7 md:text-xl"
       >
         Modifier Profil
@@ -31,7 +31,6 @@
             </div>
             <div v-else class="font-medium">???</div>
           </div>
-
           <!-- if the case of the student is not closed ------------------------------------------------------------------------------------------------------------ -->
           <div v-if="studentUpdate.case_closed">
             <div class="mb-6 flex justify-between">
@@ -227,20 +226,18 @@
 </template>
 
 <script setup>
-const currentUser = ref(null);
-currentUser.value = await $fetch("/api/me");
-
 // get the student id from the url
 const route = useRoute();
 const studentId = route.params.id;
-const obj = await $fetch("/api/student", {
-  method: "POST",
-  body: { uniqueId: studentId },
-});
-const student = obj.request;
 
-// studentUpdate is a reactive object
-const studentUpdate = ref(student);
+const studentUpdate = ref(
+  (
+    await $fetch("/api/student", {
+      method: "POST",
+      body: { uniqueId: studentId },
+    })
+  ).request
+);
 
 // variables ------------------------------------------------------------------------------------------------------------
 const case_closed = ref(studentUpdate.value.case_closed);
@@ -286,17 +283,30 @@ const convertedDate = computed(() => {
 }); */
 
 const convertedDate = computed(() => {
-  const inputDateString = studentUpdate.value.presentation_date;
-  const isoFormattedDateString = inputDateString.replace(" ", "T"); // Convert space to "T" for proper ISO format
+  if (
+    studentUpdate.presentation_date &&
+    studentUpdate.presentation_date !== undefined &&
+    studentUpdate.presentation_date !== "" &&
+    studentUpdate.presentation_date !== " " &&
+    studentUpdate.presentation_date !== null &&
+    studentUpdate.presentation_date !== "invalid date" &&
+    studentUpdate.presentation_date !== "Invalid Date" &&
+    studentUpdate.presentation_date !== "Invalid date"
+  ) {
+    const inputDateString = studentUpdate.value.presentation_date;
+    const isoFormattedDateString = inputDateString.replace(" ", "T"); // Convert space to "T" for proper ISO format
 
-  const dateObject = new Date(isoFormattedDateString);
-  const year = dateObject.getFullYear();
-  const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
-  const day = dateObject.getDate().toString().padStart(2, "0");
-  const hours = dateObject.getHours().toString().padStart(2, "0");
-  const minutes = dateObject.getMinutes().toString().padStart(2, "0");
+    const dateObject = new Date(isoFormattedDateString);
+    const year = dateObject.getFullYear();
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
+    const day = dateObject.getDate().toString().padStart(2, "0");
+    const hours = dateObject.getHours().toString().padStart(2, "0");
+    const minutes = dateObject.getMinutes().toString().padStart(2, "0");
 
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  } else {
+    return studentUpdate.presentation_date;
+  }
 });
 
 // ------------------------------------------------------------------------------------------------------------
@@ -305,9 +315,11 @@ const convertedDate = computed(() => {
 const updateStudent = async (studentUpdate) => {
   studentUpdate.case_closed = case_closed.value;
   studentUpdate.is_presentation_finished = is_presentation_finished.value;
-  studentUpdate.presentation_date = convertedDate.value;
   studentUpdate.final_decision = final_decision.value;
   studentUpdate.appreciation = appreciation.value;
+  studentUpdate.presentation_date = convertedDate.value
+    ? convertedDate.value
+    : studentUpdate.presentation_date;
 
   const req = await $fetch("/api/student", {
     method: "PUT",
