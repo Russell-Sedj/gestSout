@@ -48,14 +48,15 @@ onMounted(async () => {
 
   // get the list of students from the currentUser university
   else if (currentUser.value.role === "direction") {
-    const { data } = await useFetch("/api/student/", {
+    await $fetch("/api/student/", {
       method: "POST",
       body: { listDirectionId: currentUser.value.id, year: currentYear },
+    }).then((res) => {
+      studentList.value = res.request;
+      studentList.value.sort(
+        (a, b) => new Date(a.presentation_date) - new Date(b.presentation_date)
+      );
     });
-    studentList.value = data.value.request;
-    studentList.value.sort(
-      (a, b) => new Date(a.presentation_date) - new Date(b.presentation_date)
-    );
   }
 });
 </script>
