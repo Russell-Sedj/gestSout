@@ -8,9 +8,9 @@ export default defineEventHandler(async (event) => {
   let request = null;
 
   // show log of the user who make the request
-  const session = await getServerSession(event);
-  console.log("--------------------PUT request-----------------------");
-  console.log("By: ", session?.user?.email, "---------------------->");
+  // const session = await getServerSession(event);
+  // console.log("--------------------PUT request-----------------------");
+  // console.log("By: ", session?.user?.email, "---------------------->");
 
   const input_data: any = {};
   for (const key in body) {

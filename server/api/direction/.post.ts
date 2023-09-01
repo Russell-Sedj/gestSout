@@ -16,11 +16,12 @@ export default defineEventHandler(async (event) => {
   // console.log("input_data:-------------------------------", input_data);
 
   // show log of the user who make the request
-  if (!input_data.hasOwnProperty("uniqueId")) {
-    const session = await getServerSession(event);
-    console.log("--------------------POST request-----------------------");
-    console.log("By: ", session?.user?.email, "---------------------->");
-  }
+  // if (!input_data.hasOwnProperty("uniqueId")) {
+  //   await getServerSession(event).then((res) => {
+  //     console.log("--------------------POST request-----------------------");
+  //     console.log("By: ", res?.user?.email, "---------------------->");
+  //   });
+  // }
 
   // starting the process
   if (body.email && body.password) {
