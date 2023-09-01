@@ -103,32 +103,31 @@ studentList.value = (
   })
 ).request;
 
-const eligibleList = ref(
-  studentList.value.filter(
+onMounted(() => {
+  const eligibleList = ref(null);
+  eligibleList.value = studentList.value.filter(
     (student) =>
       student.is_ready_for_presentation &&
       !student.is_presentation_finished &&
       !student.final_decision &&
       !student.case_closed
-  )
-);
+  );
 
-const inProgressList = ref(
-  studentList.value.filter(
+  const inProgressList = ref(null);
+  inProgressList.value = studentList.value.filter(
     (student) =>
       !student.is_ready_for_presentation &&
       !student.is_presentation_finished &&
       !student.final_decision &&
       !student.case_closed
-  )
-);
+  );
 
-const finishedList = ref(
-  studentList.value.filter(
+  const finishedList = ref(null);
+  finishedList.value = studentList.value.filter(
     (student) =>
       (student.final_decision || student.case_closed) &&
       student.is_presentation_finished &&
       student.is_ready_for_presentation
-  )
-);
+  );
+});
 </script>
