@@ -95,11 +95,11 @@ currentUser.value = await $fetch("/api/me");
 
 // get the filter value from the url
 const route = useRoute();
-// const filterValue = ref("all");
 const filterValue = ref(route.query.filterValue || "all");
 
 // current year
-const year = ref("2023-2024");
+const runtimeConfig = useRuntimeConfig();
+const year = ref(runtimeConfig.public.currentYear);
 
 const studentList = ref(null);
 
