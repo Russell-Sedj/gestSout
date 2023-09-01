@@ -88,8 +88,8 @@ const url = route.fullPath;
 const start = url.indexOf("callbackUrl=");
 const end = url.indexOf("&error");
 const x = url.substring(start, end);
-const [key, callbackUrl] = x.split("=");
-if (callbackUrl === "/logout") {
+let [key, callbackUrl] = x.split("=");
+if (callbackUrl === "http://localhost:3000/logout") {
   callbackUrl = "/";
 }
 </script>
