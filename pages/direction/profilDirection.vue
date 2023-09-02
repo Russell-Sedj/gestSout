@@ -27,21 +27,31 @@
             >
           </div>
 
-          <div class="relative z-0 w-full mb-8 group">
-            <input
-              type="password"
-              name="floating_password"
-              id="floating_password"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-              v-model="direction.password"
-            />
-            <label
-              for="floating_password"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
-              >Mot de passe</label
+          <div class="relative z-0 w-full mb-8 group grid grid-cols-12 gap-2">
+            <div class="w-auto col-span-10 md:col-span-11">
+              <input
+                type="password"
+                name="floating_password"
+                id="floating_password"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                required
+                v-model="direction.password"
+              />
+              <label
+                for="floating_password"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8"
+                >Mot de passe</label
+              >
+            </div>
+
+            <div
+              class="bg-gray-300 rounded flex items-center justify-center col-span-2 md:col-span-1 h-auto"
+              @click="showPassword = !showPassword"
             >
+              <span v-if="showPassword">•</span>
+              <span v-else>A-Z</span>
+            </div>
           </div>
 
           <div class="grid md:grid-cols-2 md:gap-6">
@@ -131,6 +141,7 @@
 <script setup>
 const currentUser = ref(null);
 currentUser.value = await $fetch("/api/me");
+const showPassword = ref(false);
 
 useHead({
   title: "Profil Service Examen",
