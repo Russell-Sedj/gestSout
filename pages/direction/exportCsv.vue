@@ -52,10 +52,16 @@ function escapeCsvText(text) {
 
 // format some property of the object i got from the api
 const formatStudentList = () => {
-  studentList.forEach((student) => {
-    student.appreciation = student.appreciation
-      ? escapeCsvText(student.appreciation)
-      : "";
+  studentList.forEach((student, index) => {
+    // student.appreciation = student.appreciation
+    //   ? escapeCsvText(student.appreciation)
+    //   : "";
+
+    for (const prop in student) {
+      if (student[prop] && typeof student[prop] === "string") {
+        studentList[index][prop] = escapeCsvText(student[prop]);
+      }
+    }
   });
 };
 
