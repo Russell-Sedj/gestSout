@@ -3,7 +3,7 @@
     <p>Deconnexion en cours...</p>
     <p>
       Vous allez être deconnecté. Si ce n'est pas le cas, cliquez
-      <span class="text-blue-500" to="logout">ici</span>.
+      <span class="text-blue-500 cursor-pointer" to="logout">ici</span>.
     </p>
   </div>
 </template>
