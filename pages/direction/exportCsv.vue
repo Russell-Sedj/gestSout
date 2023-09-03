@@ -55,6 +55,7 @@ const removeAccents = (input) => {
 };
 
 const deleteUselessProperties = (student) => {
+  delete student.id;
   delete student.created_at;
   delete student.updated_at;
   delete student.role;
