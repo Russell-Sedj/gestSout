@@ -36,7 +36,7 @@ const exportDataToCsv = (data) => {
   link.href = url;
   link.setAttribute("download", "export_data.csv");
   link.click();
-  //   window.location.href = "/direction/";
+  window.location.href = "/direction/";
 };
 
 // convert in a good csv format
@@ -50,6 +50,10 @@ function escapeCsvText(text) {
   return escapedText;
 }
 
+function removeAccents(input) {
+  return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 // format some property of the object i got from the api
 const formatStudentList = () => {
   studentList.forEach((student, index) => {
@@ -59,7 +63,7 @@ const formatStudentList = () => {
 
     for (const prop in student) {
       if (student[prop] && typeof student[prop] === "string") {
-        studentList[index][prop] = escapeCsvText(student[prop]);
+        studentList[index][prop] = escapeCsvText(removeAccents(student[prop]));
       }
     }
   });
@@ -76,6 +80,6 @@ await $fetch("/api/student/", {
 
 onMounted(() => {
   formatStudentList();
-  // exportDataToCsv(studentList);
+  exportDataToCsv(studentList);
 });
 </script>
