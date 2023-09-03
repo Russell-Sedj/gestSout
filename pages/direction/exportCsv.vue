@@ -50,9 +50,37 @@ function escapeCsvText(text) {
   return escapedText;
 }
 
-function removeAccents(input) {
+const removeAccents = (input) => {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
+};
+
+const deleteUselessProperties = (student) => {
+  delete student.created_at;
+  delete student.updated_at;
+  delete student.role;
+  delete student.password;
+  delete student.year;
+  delete student.is_school_fees_paid;
+  delete student.is_credit_enough;
+  delete student.is_profil_information_complete;
+  delete student.is_ready_for_presentation;
+  delete student.is_presentation_finished;
+  delete student.case_closed;
+  delete student.directionId;
+};
+
+const formatDate = (studentDate) => {
+  const date = new Date(studentDate);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+  };
+  return date.toLocaleDateString("fr-FR", options);
+};
 
 // format some property of the object i got from the api
 const formatStudentList = () => {
@@ -60,6 +88,11 @@ const formatStudentList = () => {
     // student.appreciation = student.appreciation
     //   ? escapeCsvText(student.appreciation)
     //   : "";
+
+    deleteUselessProperties(student);
+    if (student.presentation_date) {
+      student.presentation_date = formatDate(student.presentation_date);
+    }
 
     for (const prop in student) {
       if (student[prop] && typeof student[prop] === "string") {
