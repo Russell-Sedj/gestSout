@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-3">
+    <div class="mt-3 md:mt-0 md:text-lg font-medium">
       <nuxt-link
         class="mx-2 px-2 py-1 bg-green-300 rounded md:rounded-b"
         to="importStudent"
