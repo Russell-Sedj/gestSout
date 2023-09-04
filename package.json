@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.1.1",
+    "@usecsv/vuejs3": "^2.4.0",
     "flowbite": "^1.8.1",
     "next-auth": "^4.21.1",
     "typescript": "^5.2.2"
