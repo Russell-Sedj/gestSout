@@ -31,8 +31,7 @@ export default {
   components: { "usecsv-button": UseCSVButton },
   methods: {
     onData: function (data) {
-      console.log("Data:", data);
-      console.log(data.rows);
+      // console.log("Data:", data);
 
       for (let i = 0; i < data.importedRowsCount; i++) {
         this.addStudent(data.rows[i], i);
@@ -53,7 +52,14 @@ export default {
         year: currentYear,
         directionId: currentUser.value.id,
       };
+      if (data["Maitre memoire"]) {
+        student.master = data["Maitre memoire"];
+      }
+      if (data["Maitre de stage"]) {
+        student.internMaster = data["Maitre de stage"];
+      }
 
+      // here we go
       if (
         student.lastname &&
         student.firstname &&
