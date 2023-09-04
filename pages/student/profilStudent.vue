@@ -77,7 +77,7 @@
             </div>
 
             <div
-              class="bg-gray-300 rounded flex items-center justify-center col-span-2 md:col-span-1 h-auto"
+              class="cursor-pointer bg-gray-300 rounded flex items-center justify-center col-span-2 md:col-span-1 h-auto"
               @click="showPassword = !showPassword"
             >
               <span v-if="showPassword">•</span>

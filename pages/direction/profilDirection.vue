@@ -30,7 +30,7 @@
           <div class="relative z-0 w-full mb-8 group grid grid-cols-12 gap-2">
             <div class="w-auto col-span-10 md:col-span-11">
               <input
-                type="password"
+                :type="showPassword ? 'text' : 'password'"
                 name="floating_password"
                 id="floating_password"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -46,7 +46,7 @@
             </div>
 
             <div
-              class="bg-gray-300 rounded flex items-center justify-center col-span-2 md:col-span-1 h-auto"
+              class="cursor-pointer bg-gray-300 rounded flex items-center justify-center col-span-2 md:col-span-1 h-auto"
               @click="showPassword = !showPassword"
             >
               <span v-if="showPassword">•</span>
