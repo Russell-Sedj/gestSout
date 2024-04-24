@@ -67,7 +67,7 @@
         to="/direction/studentList"
         class="hover:bg-gray-700 hover:text-white ease-out duration-300 rounded w-auto px-2 py-1 mx-2 md:text-xl"
       >
-        List des etudiants
+        Liste des etudiants
       </nuxt-link>
     </div>
 
